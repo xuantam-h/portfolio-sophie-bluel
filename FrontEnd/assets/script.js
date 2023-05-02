@@ -6,11 +6,11 @@ async function fetchData(type) {
     const data = await response.json();
     return data;
 }
-
+// Access to API /works
 async function loadWorks() {
     return await fetchData('works')
 }
-
+// Access to API /categories
 async function loadCateg() {
     return await fetchData('categories')
 }
@@ -43,16 +43,8 @@ async function createGallery(arr) {
 
 createGallery()
 
-// Access to API /categories
-async function loadCateg() {
-    const r = await fetch("http://localhost:5678/api/categories")
-    if (r.ok === true){
-        return r.json();
-    }
-    throw new Error("Impossible de contacter le serveur")
-}
-
-loadCateg().then(categories => {    
+async function createFilters() {
+    let categories = await loadCateg()
 
     const filtersList = document.querySelector(".filters-list")
 
@@ -64,8 +56,9 @@ loadCateg().then(categories => {
         filterBtn.addEventListener("click", filterEvent)
         filtersList.appendChild(filterBtn)
     }
+}
 
-})
+createFilters()
 
 async function filterEvent(e) {
     let works = await loadWorks()
