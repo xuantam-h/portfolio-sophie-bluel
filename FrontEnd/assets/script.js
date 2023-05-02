@@ -22,18 +22,18 @@ async function createGallery(arr) {
     let works = await loadWorks()
 
     // Loop the array and create <figure> for each element
-    for (let i = 0; i < works.length; i++){
+    for (const work of works){
         const projectFigure = document.createElement("figure")
         const projectImg = document.createElement("img")
 
         // Create <img> element and fill the attributes src, alt
-        projectImg.src = works[i].imageUrl
-        projectImg.alt = works[i].title
+        projectImg.src = work.imageUrl
+        projectImg.alt = work.title
         projectFigure.appendChild(projectImg)
 
         // Create <figcaption> element and fill the element
         const projectName = document.createElement("figcaption")
-        projectName.innerText = works[i].title
+        projectName.innerText = work.title
         projectFigure.appendChild(projectName)
 
         // Create <figure> child element into the gallery section
