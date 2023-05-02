@@ -1,15 +1,25 @@
-const galleryDiv = document.querySelector(".gallery");
+const url = 'http://localhost:5678/api/'
 
-// Access to API /works
-async function fetchWorks() {
-    const r = await fetch("http://localhost:5678/api/works")
-    if (r.ok === true){
-        return r.json();
-    }
-    throw new Error("Impossible de contacter le serveur")
+// Access to API depending on types
+async function fetchData(type) {
+    const response = await fetch(url + type);
+    const data = await response.json();
+    return data;
 }
 
-fetchWorks().then(works => {
+async function loadWorks() {
+    return await fetchData('works')
+}
+
+async function loadCateg() {
+    return await fetchData('categories')
+}
+
+const galleryDiv = document.querySelector(".gallery");
+
+async function createGallery(arr) {
+
+    let works = await loadWorks()
 
     // Loop the array and create <figure> for each element
     for (let i = 0; i < works.length; i++){
@@ -29,12 +39,12 @@ fetchWorks().then(works => {
         // Create <figure> child element into the gallery section
         galleryDiv.appendChild(projectFigure)
     }
+}
 
-    const filteredWorks = works.filter(work => work.categoryId > 2)
-})
+createGallery()
 
 // Access to API /categories
-async function fetchCateg() {
+async function loadCateg() {
     const r = await fetch("http://localhost:5678/api/categories")
     if (r.ok === true){
         return r.json();
@@ -42,7 +52,7 @@ async function fetchCateg() {
     throw new Error("Impossible de contacter le serveur")
 }
 
-fetchCateg().then(categories => {
+loadCateg().then(categories => {    
 
     const filtersList = document.querySelector(".filters-list")
 
@@ -50,14 +60,28 @@ fetchCateg().then(categories => {
         let filterBtn = document.createElement("li")
         filterBtn.classList.add("filter-btn")
         filterBtn.innerText = category.name
+        filterBtn.setAttribute('id', category.id)
+        filterBtn.addEventListener("click", filterEvent)
         filtersList.appendChild(filterBtn)
     }
+
 })
 
+async function filterEvent(e) {
+    let works = await loadWorks()
+    const filterId = await e.target.getAttribute('id')
+    const filteredWorks = await works.filter(work => work.categoryId === filterId)
+    console.log(filteredWorks)
+}
 
-const filters = document.querySelectorAll(".filter-btn")
-filters.forEach(function(){
-    this.addEventListener("click", () =>{
-        console.log("Hey")
-    })
-})
+function createElem(el, container){
+    const newElem = document.createElement(el)
+    const containerDiv = document.querySelector(container)
+    containerDiv.appendChild(newElem)
+}
+
+/*
+async function filterWorks() {
+    .filter(work => work.categoryId === filterId)
+}
+*/
