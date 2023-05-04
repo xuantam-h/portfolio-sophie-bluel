@@ -14,12 +14,11 @@ async function loadWorks() {
 async function loadCateg() {
     return await fetchData('categories')
 }
-
-const galleryDiv = document.querySelector(".gallery");
-
 async function createGallery(arr) {
+    let works = await arr
 
-    let works = await loadWorks()
+    const galleryDiv = document.querySelector(".gallery");
+    galleryDiv.innerHTML = ""
 
     // Loop the array and create <figure> for each element
     for (const work of works){
@@ -63,8 +62,9 @@ createFilters()
 async function filterEvent(e) {
     let works = await loadWorks()
     const filterId = await e.target.getAttribute('id')
-    const filteredWorks = await works.filter(work => work.categoryId === filterId)
-    console.log(filteredWorks)
+    e.target.classList.toggle('activeFilter-btn')
+    const filteredWorks = await works.filter(work => work.categoryId == filterId)
+    createGallery(filteredWorks)
 }
 
 function createElem(el, container){
@@ -72,9 +72,3 @@ function createElem(el, container){
     const containerDiv = document.querySelector(container)
     containerDiv.appendChild(newElem)
 }
-
-/*
-async function filterWorks() {
-    .filter(work => work.categoryId === filterId)
-}
-*/

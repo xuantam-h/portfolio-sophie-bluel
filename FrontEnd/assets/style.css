@@ -169,15 +169,29 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"], .filter-btn{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
+}
+
+.filters-list{
+	display: flex;
+	gap:10px;
+	justify-content: center;
+	margin:51px 0;
+	
+}
+.filter-btn{
+	padding:9px 30px;
+}
+
+input[type="submit"]{
+	margin : 2em auto;
+	width: 180px;
 }
 
 footer nav ul {
