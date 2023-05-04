@@ -28,6 +28,7 @@ loginForm.addEventListener('submit', async function(e){
     const tokenId = data.token
 
     if (r.ok === true){
+        localStorage.setItem('token', tokenId);
         window.location.href = 'index.html'
     } else {
         alert("Erreur dans l'identifiant ou le mot de passe")
