@@ -1,3 +1,5 @@
+import {tokenId} from './login.js'
+
 const url = 'http://localhost:5678/api/'
 
 // Access to API depending on types
@@ -62,7 +64,7 @@ createFilters()
 async function filterEvent(e) {
     let works = await loadWorks()
     const filterId = await e.target.getAttribute('id')
-    e.target.classList.toggle('activeFilter-btn')
+    e.target.classList.toggle('active-btn')
     const filteredWorks = await works.filter(work => work.categoryId == filterId)
     createGallery(filteredWorks)
 }
@@ -72,3 +74,30 @@ function createElem(el, container){
     const containerDiv = document.querySelector(container)
     containerDiv.appendChild(newElem)
 }
+
+// Edit bar only visible if logged
+const editBar = document.getElementById('edit-bar')
+const token = window.localStorage.getItem('token')
+
+if(token){
+    editBar.classList.add('test')
+}
+
+// Modal
+
+const modalBtn = document.getElementById('modal-btn')
+const modalMain = document.getElementById('js-modal')
+const modalClose = document.getElementById('js-modal-close')
+
+// Call openModal() function when button is clicked
+modalBtn.addEventListener('click', () => {
+    modalMain.classList.remove('hidden')
+    modalMain.classList.add('visible')
+})
+
+// Call closeModal() function when close button is clicked
+modalClose.addEventListener('click', () => {
+    modalMain.classList.remove('visible')
+    modalMain.classList.add('hidden')
+})
+
