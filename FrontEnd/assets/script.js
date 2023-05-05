@@ -1,5 +1,3 @@
-import {tokenId} from './login.js'
-
 const url = 'http://localhost:5678/api/'
 
 // Access to API depending on types
@@ -41,8 +39,12 @@ async function createGallery(arr) {
         galleryDiv.appendChild(projectFigure)
     }
 }
+async function initializeGallery(){
+    let works = await loadWorks()
+    createGallery(works)
+}
 
-createGallery()
+initializeGallery()
 
 async function createFilters() {
     let categories = await loadCateg()
