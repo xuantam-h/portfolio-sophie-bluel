@@ -123,7 +123,6 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
 .gallery {
 	width: 100%;
@@ -235,10 +234,20 @@ footer nav ul {
 	width: 100%;
 }
 
-#modal-btn{
+.edit-btn{
+	background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 	color:#fff;
 	text-decoration: none;
 	margin-right: 21px;
+}
+
+.edit-btn-alt{
+	color:#000;
 }
 
 #js-modal{
@@ -279,4 +288,13 @@ footer nav ul {
 #js-modal-close{
 	cursor:pointer;
 	font-size:20px;
+}
+
+.d-flex{
+	display: flex;
+}
+
+.flex-center{
+	align-items:center;
+	justify-content: center;
 }

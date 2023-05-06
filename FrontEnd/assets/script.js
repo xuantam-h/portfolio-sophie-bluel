@@ -81,15 +81,36 @@ function createElem(el, container){
 const editBar = document.getElementById('edit-bar')
 const token = window.localStorage.getItem('token')
 
-if(token){
-    editBar.classList.add('test')
-}
+// Displays edit mode and all hidden elemnts if logged in / token exists
+if (token != null) {
+    document.querySelectorAll('.hidden').forEach((element) => {
+        element.classList.remove('hidden')
+    })
+} 
 
 // Modal
 
-const modalBtn = document.getElementById('modal-btn')
+const editBtn = document.getElementById('edit-btn')
 const modalMain = document.getElementById('js-modal')
 const modalClose = document.getElementById('js-modal-close')
+let modal = null
+
+const enableEdit = function () {
+
+}
+
+const openModal = function (e) {
+    e.preventDefault()
+    const target = document.querySelector(e.target.getAttribute('href'))
+    target.removeAttribute('aria-hidden')
+    target.setAttribute('aria-modal','true')
+    modal = target
+    modal.addEventListener('click', closeModal)
+}
+
+const closeModal = function (e) {
+    e.preventDefault()
+}
 
 // Call openModal() function when button is clicked
 modalBtn.addEventListener('click', () => {

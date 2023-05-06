@@ -13,12 +13,12 @@
     <script src="https://kit.fontawesome.com/247f8df8c0.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="edit-bar">
-	<a href="#" id="modal-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</a>
+<div id="edit-bar" class="hidden">
+	<p class="edit-btn" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
 	<a href="#" class="btn">publier les changements</a>
 </div>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
@@ -41,7 +41,10 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="d-flex flex-center">
+			<h2>Mes Projets</h2>
+			<button class="edit-btn edit-btn-alt hidden" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
+		</div>
 		<nav>
 			<ul class="filters-list">
 				<li class="filter-btn" id="all-filters">Tous</li>
