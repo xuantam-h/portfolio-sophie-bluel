@@ -250,6 +250,9 @@ footer nav ul {
 	color:#000;
 }
 
+
+
+/** Modal styling **/
 #js-modal{
 	width: 100%;
 	height: 100%;
@@ -261,6 +264,7 @@ footer nav ul {
 	background: rgba(0,0,0,0.8);
 	justify-content: center;
 	align-items: center;
+	animation:fadeIn 250ms ease-in-out;
 }
 
 .js-modal-wrapper{
@@ -290,6 +294,12 @@ footer nav ul {
 	font-size:20px;
 }
 
+.modal-hidden{
+	display: none;
+}
+
+
+/** Reusable CSS classes **/
 .d-flex{
 	display: flex;
 }
@@ -297,4 +307,8 @@ footer nav ul {
 .flex-center{
 	align-items:center;
 	justify-content: center;
+}
+
+i.fa-pen-to-square{
+	margin-right:8px;
 }

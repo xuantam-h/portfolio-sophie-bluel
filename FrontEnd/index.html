@@ -14,7 +14,7 @@
 </head>
 <body>
 <div id="edit-bar" class="hidden">
-	<p class="edit-btn" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
+	<span class="edit-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</span>
 	<a href="#" class="btn">publier les changements</a>
 </div>
 <header>
@@ -23,7 +23,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<li id="log-btn">login</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -65,12 +65,17 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
-	<div id="js-modal" class="hidden" aria-hidden="true" role="dialog" aria-labelledby="main-modal">
+	<div id="js-modal" class="modal-hidden" aria-hidden="true" role="dialog" aria-labelledby="main-modal">
 		<div class="js-modal-wrapper">
 			<div class="js-modal-buttons">
 				<i id="js-modal-close" class="fa-solid fa-xmark"></i>
 			</div>
 			<h2>Galerie photo</h2>
+			<div id="js-modal-gallery">
+					
+			</div>
+			<button>Ajouter une photo</button>
+			<a href="#" class="underlined-link">Supprimer la galerie</a>
 		</div>
 	</div>
 </main>

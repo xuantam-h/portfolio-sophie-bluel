@@ -14,6 +14,8 @@ async function loadWorks() {
 async function loadCateg() {
     return await fetchData('categories')
 }
+
+// Function to create projects gallery
 async function createGallery(arr) {
     let works = await arr
 
@@ -39,6 +41,7 @@ async function createGallery(arr) {
         galleryDiv.appendChild(projectFigure)
     }
 }
+
 async function initializeGallery(){
     let works = await loadWorks()
     createGallery(works)
@@ -46,6 +49,7 @@ async function initializeGallery(){
 
 initializeGallery()
 
+// Create filters for projects
 async function createFilters() {
     let categories = await loadCateg()
 
@@ -79,48 +83,55 @@ function createElem(el, container){
 
 // Edit bar only visible if logged
 const editBar = document.getElementById('edit-bar')
-const token = window.localStorage.getItem('token')
+let token = window.localStorage.getItem('token')
 
-// Displays edit mode and all hidden elemnts if logged in / token exists
+
+// Displays edit mode and all hidden elements if logged in / token exists
 if (token != null) {
+    displayHidden()
+    logOut()
+} 
+
+// Function logout() when logged in
+function logOut() {
+    const logBtn = document.getElementById('log-btn')
+    logBtn.innerText = 'logout'
+    logBtn.addEventListener('click', () => {
+        window.localStorage.removeItem('token')
+        token = ""
+        location.href = 'login.html'
+    })
+}
+
+// Function to display hidden elements when logged in
+function displayHidden(){
     document.querySelectorAll('.hidden').forEach((element) => {
         element.classList.remove('hidden')
     })
-} 
+}
 
 // Modal
-
 const editBtn = document.getElementById('edit-btn')
 const modalMain = document.getElementById('js-modal')
 const modalClose = document.getElementById('js-modal-close')
-let modal = null
-
-const enableEdit = function () {
-
-}
 
 const openModal = function (e) {
     e.preventDefault()
-    const target = document.querySelector(e.target.getAttribute('href'))
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('aria-modal','true')
-    modal = target
-    modal.addEventListener('click', closeModal)
+    modalMain.classList.remove('modal-hidden')
+    modalMain.setAttribute('aria-hidden','false')
+    modalMain.setAttribute('aria-modal','true')
+    modalMain.classList.add('visible')
 }
 
 const closeModal = function (e) {
     e.preventDefault()
+    modalMain.classList.add('modal-hidden')
+    modalMain.setAttribute('aria-hidden','true')
+    modalMain.removeAttribute('aria-modal')
 }
 
-// Call openModal() function when button is clicked
-modalBtn.addEventListener('click', () => {
-    modalMain.classList.remove('hidden')
-    modalMain.classList.add('visible')
-})
+// Call openModal() function when edit button is clicked
+editBtn.addEventListener('click', openModal)
 
 // Call closeModal() function when close button is clicked
-modalClose.addEventListener('click', () => {
-    modalMain.classList.remove('visible')
-    modalMain.classList.add('hidden')
-})
-
+modalClose.addEventListener('click', closeModal)
