@@ -168,12 +168,13 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"], .active-btn, .filter-btn{
+input[type="submit"], .btn, .active-btn, .filter-btn{
 	font-family: 'Syne';
 	font-weight: 700;
 	text-align: center;
 	border-radius: 60px;
 	border:1px solid #1D6154;
+	text-decoration: none;
 }
 
 .filters-list{
@@ -198,6 +199,15 @@ input[type="submit"], .active-btn{
 input[type="submit"]{
 	margin : 2em auto;
 	width: 180px;
+}
+
+.w-btn{
+	background-color: #fff;
+	color:#000;
+	padding: 11px 23px;
+	display: inline-block;
+	border-color: #fff;
+	font-family: 'Work Sans';
 }
 
 footer nav ul {
@@ -264,7 +274,7 @@ footer nav ul {
 	background: rgba(0,0,0,0.8);
 	justify-content: center;
 	align-items: center;
-	animation:fadeIn 250ms ease-in-out;
+	animation:fadeIn 300ms ease-in-out;
 }
 
 .js-modal-wrapper{
@@ -311,4 +321,22 @@ footer nav ul {
 
 i.fa-pen-to-square{
 	margin-right:8px;
+}
+
+@keyframes fadeIn {
+	0%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+
+@keyframes slideInTop {
+	0%{
+		transform: translateY(-50%);
+	}
+	100%{
+		transform: translateY(0);
+	}
 }
