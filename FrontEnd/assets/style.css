@@ -130,6 +130,7 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin-top:91px;
 }
 
 .gallery img {
@@ -155,7 +156,6 @@ margin: auto;
 }
 
 #contact input {
-	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -175,6 +175,7 @@ input[type="submit"], .btn, .active-btn, .filter-btn{
 	border-radius: 60px;
 	border:1px solid #1D6154;
 	text-decoration: none;
+	padding:9px 30px;
 }
 
 .filters-list{
@@ -185,7 +186,6 @@ input[type="submit"], .btn, .active-btn, .filter-btn{
 	
 }
 .filter-btn{
-	padding:9px 30px;
 	background-color: #fff;
 	color:#1D6154;
 	border-color:#1D6154;
@@ -220,10 +220,20 @@ footer nav ul {
 	color:#3D3D3D;
 	font-size:14px;
 	text-align: center;
+	display: block;
 }
 
 .underlined-link:hover{
 	color:#B1663C;
+}
+
+.colored-link{
+	color:#D65353;
+	text-decoration: none;
+	font-size:14px;
+	text-align: center;
+	margin-top:23px;
+	display: block;
 }
 
 .hidden{
@@ -260,8 +270,6 @@ footer nav ul {
 	color:#000;
 }
 
-
-
 /** Modal styling **/
 #js-modal{
 	width: 100%;
@@ -291,7 +299,6 @@ footer nav ul {
 	color:#000;
 	font-weight: 500;
 	font-size: 26px;
-	margin-bottom: 46px;
 }
 
 .js-modal-buttons{
@@ -305,6 +312,36 @@ footer nav ul {
 }
 
 .modal-hidden{
+	display: none;
+}
+
+#js-modal-gallery{
+	display: grid;
+	grid-template-columns: repeat(5,1fr);
+	gap:10px;
+	margin:46px 0;
+}
+
+#js-modal-gallery figure{
+	position: relative;
+}
+
+#js-modal-gallery img{
+	max-width: 100%;
+}
+
+.delete-btn{
+	background-color: #000;
+	padding:4px;
+	border-radius: 2px;
+	position: absolute;
+	top:10px;
+	right:10px;
+	color:#fff;
+	border:none;
+}
+
+#js-modal-form{
 	display: none;
 }
 

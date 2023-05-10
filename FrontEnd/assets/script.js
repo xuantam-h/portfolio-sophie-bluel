@@ -1,10 +1,23 @@
 const url = 'http://localhost:5678/api/'
 
-// Access to API depending on types
-async function fetchData(type) {
-    const response = await fetch(url + type);
+// Import token when logged in
+let token = window.localStorage.getItem('token')
+
+// Access to API depending on types and methods
+async function fetchData(type, method) {
+
+    const options = {
+        method: method,
+        headers: {'accept': 'application/json'}
+    }
+
+    // Change the headers depending on the method of the API
+    if (method === 'DELETE' || method === 'POST') { options.headers['Authorization'] = `Bearer ${token}`}
+
+    const response = await fetch(url + type, options);
     if (response.ok === true){
         const data = await response.json();
+        console.log(data);
         return data;
     } else {
         alert("Impossible de communiquer avec l'API")
@@ -50,6 +63,18 @@ async function createGallery(arr, type) {
         }
 
         if (type === 'modal') {
+            // Create delete button in modal ONLY
+            const deleteBtn = document.createElement("button")
+            deleteBtn.classList.add('delete-btn')
+            const deleteIcon = document.createElement("i")
+            deleteIcon.classList.add('fa-solid', 'fa-trash-can')
+            deleteBtn.appendChild(deleteIcon)
+            deleteBtn.addEventListener('click', () => {
+                const workId = work.id
+                fetchData(`works/${workId}`, 'DELETE')
+            })
+            projectFigure.appendChild(deleteBtn)
+
             const modalGallery = document.getElementById('js-modal-gallery')
             // Create <figure> child element into the modal section
             modalGallery.appendChild(projectFigure)
@@ -78,6 +103,11 @@ async function createFilters() {
         filterBtn.addEventListener("click", filterEvent)
         filtersList.appendChild(filterBtn)
     }
+
+    // Won't be displayed in admin mode
+    if (token != null) {
+        filtersList.classList.add('hidden')
+    }
 }
 
 createFilters()
@@ -96,9 +126,6 @@ function createElem(el, container){
     containerDiv.appendChild(newElem)
 }
 
-// Import token when logged in
-let token = window.localStorage.getItem('token')
-
 // Displays edit mode and all hidden elements if logged in / token exists
 if (token != null) {
     displayAdmin()
@@ -111,7 +138,6 @@ function logOut() {
     logBtn.innerText = 'logout'
     logBtn.addEventListener('click', () => {
         window.localStorage.removeItem('token')
-        token = ""
         location.href = 'login.html'
     })
 }
@@ -121,6 +147,7 @@ function displayAdmin(){
     document.querySelectorAll('.hidden').forEach((element) => {
         element.classList.remove('hidden')
     })
+    document.querySelector('header').style.marginTop='100px'
 }
 
 // Modal functions
@@ -128,13 +155,15 @@ const editBtn = document.getElementById('edit-btn')
 const modalMain = document.getElementById('js-modal')
 const modalClose = document.getElementById('js-modal-close')
 
-const openModal = function (e) {
+const openModal = async function (e) {
     e.preventDefault()
     modalMain.classList.remove('modal-hidden')
     modalMain.setAttribute('aria-hidden','false')
     modalMain.setAttribute('aria-modal','true')
     modalMain.classList.add('visible')
-    modalMain.addEventListener('click', stopPropagation)
+    document.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+    let works = await loadWorks()
+    createGallery(works, 'modal')
 }
 
 const closeModal = function (e) {
@@ -143,6 +172,7 @@ const closeModal = function (e) {
     modalMain.setAttribute('aria-hidden','true')
     modalMain.removeAttribute('aria-modal')
     modalMain.removeEventListener('click', stopPropagation)
+    document.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
 }
 
 const stopPropagation = function (e) {
