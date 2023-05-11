@@ -1,0 +1,383 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/** end reset css**/
+/* Color variables */
+/* Other variables */
+/* Function to convert into Rem units */
+body {
+  max-width: 71.25rem;
+  margin: auto;
+  font-family: "Work Sans";
+  font-size: 0.875rem;
+}
+
+section {
+  margin: 3.125rem 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: flex;
+}
+
+/** Reusable CSS classes **/
+.d-flex {
+  display: flex;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Syne", sans-serif;
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: #B1663C;
+}
+h1 > span {
+  font-family: "Work Sans", sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  font-size: 1.875rem;
+  color: #1D6154;
+}
+
+input[type=submit], .btn, .active-btn, .filter-btn {
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 3.75rem;
+  border: 1px solid #1D6154;
+  text-decoration: none;
+  padding: 0.5625rem 1.875rem;
+}
+
+.filters-list {
+  display: flex;
+  gap: 0.625rem;
+  justify-content: center;
+  margin: 3.1875rem 0;
+}
+
+.filter-btn {
+  background-color: #FFF;
+  color: #1D6154;
+  border-color: #1D6154;
+}
+
+input[type=submit], .active-btn {
+  color: #FFF;
+  background-color: #1D6154;
+}
+
+input[type=submit] {
+  margin: 2em auto;
+  width: 11.25rem;
+}
+
+.w-btn {
+  background-color: #FFF;
+  color: #000;
+  padding: 0.6875rem 1.4375rem;
+  display: inline-block;
+  border-color: #FFF;
+  font-family: "Work Sans";
+}
+
+.underlined-link {
+  color: #3D3D3D;
+  font-size: 0.875rem;
+  text-align: center;
+  display: block;
+}
+.underlined-link:hover {
+  color: #B1663C;
+}
+
+.colored-link {
+  color: #B1663C;
+  text-decoration: none;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: 1.4375rem;
+  display: block;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  color: #FFF;
+  text-decoration: none;
+  margin-right: 1.3125rem;
+}
+
+.edit-btn-alt {
+  color: #000;
+}
+
+.delete-btn {
+  background-color: #000;
+  padding: 0.25rem;
+  border-radius: 0.125rem;
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  color: #FFF;
+  border: none;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+/** Modal styling **/
+#js-modal {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 300ms ease-in-out;
+}
+
+.js-modal-wrapper {
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: 630px;
+  width: 100%;
+  text-align: center;
+  padding: 30px;
+}
+
+.js-modal-wrapper h2 {
+  font-family: "Work Sans";
+  color: #000;
+  font-weight: 500;
+  font-size: 26px;
+}
+
+.js-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#js-modal-close {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+#js-modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 46px 0;
+}
+
+#js-modal-gallery figure {
+  position: relative;
+}
+
+#js-modal-gallery img {
+  max-width: 100%;
+}
+
+#js-modal-form {
+  display: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 3.125rem 0;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+nav li {
+  padding: 0 10px;
+  font-size: 1.2em;
+}
+
+li:hover {
+  color: #B1663C;
+}
+
+#edit-bar {
+  background-color: #000;
+  padding: 0.625rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}
+
+footer nav ul {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
+}
+
+#introduction {
+  display: flex;
+  align-items: center;
+}
+#introduction figure {
+  flex: 1;
+}
+#introduction img {
+  display: block;
+  margin: auto;
+  width: 80%;
+}
+#introduction article {
+  flex: 1;
+}
+#introduction h2 {
+  margin-bottom: 1em;
+}
+#introduction p {
+  margin-bottom: 0.5em;
+}
+
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 1.25rem;
+  grid-row-gap: 1.25rem;
+  margin-top: 5.6875rem;
+}
+.gallery img {
+  width: 100%;
+}
+
+#portfolio h2 {
+  text-align: center;
+}
+
+#contact {
+  width: 50%;
+  margin: auto;
+}
+#contact > * {
+  text-align: center;
+}
+#contact h2 {
+  margin-bottom: 20px;
+}
+#contact form {
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+#contact input {
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#contact textarea {
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#contact label {
+  margin: 2em 0 1em 0;
+}
+
+i.fa-pen-to-square {
+  margin-right: 8px;
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,88 @@
+input[type="submit"], .btn, .active-btn, .filter-btn{
+	font-family: $headings-font;
+	font-weight: 700;
+	text-align: center;
+	border-radius: toRem(60);
+	border:1px solid $primary-color;
+	text-decoration: none;
+	padding:toRem(9) toRem(30);
+}
+
+.filters-list{
+	display: flex;
+	gap:toRem(10);
+	justify-content: center;
+	margin:toRem(51) 0;
+	
+}
+.filter-btn{
+	background-color: $white-color;
+	color:$primary-color;
+	border-color:$primary-color;
+}
+
+input[type="submit"], .active-btn{
+	color: $white-color;
+	background-color: $primary-color;
+}
+
+input[type="submit"]{
+	margin: 2em auto;
+	width: toRem(180);
+}
+
+.w-btn{
+	background-color: $white-color;
+	color:$black-color;
+	padding: toRem(11) toRem(23);
+	display: inline-block;
+	border-color: $white-color;
+	font-family: 'Work Sans';
+}
+
+.underlined-link{
+	color:#3D3D3D;
+	font-size:toRem(14);
+	text-align: center;
+	display: block;
+
+    &:hover{
+        color:$secondary-color;
+    }
+}
+
+.colored-link{
+	color:$secondary-color;
+	text-decoration: none;
+	font-size:toRem(14);
+	text-align: center;
+	margin-top:toRem(23);
+	display: block;
+}
+
+.edit-btn{
+	background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	color:$white-color;
+	text-decoration: none;
+	margin-right: toRem(21);
+}
+
+.edit-btn-alt{
+	color:$black-color;
+}
+
+.delete-btn{
+	background-color:$black-color;
+	padding:toRem(4);
+	border-radius: toRem(2);
+	position: absolute;
+	top:toRem(10);
+	right:toRem(10);
+	color:$white-color;
+	border:none;
+}

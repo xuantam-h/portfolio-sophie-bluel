@@ -1,0 +1,63 @@
+/** Modal styling **/
+#js-modal{
+	width: 100%;
+	height: 100%;
+	top:0;
+	left: 0;
+	right:0;
+	bottom:0; 
+	position: fixed;
+	background: rgba(0,0,0,0.8);
+	justify-content: center;
+	align-items: center;
+	animation:fadeIn 300ms ease-in-out;
+}
+
+.js-modal-wrapper{
+	background-color: #fff;
+	border-radius: 10px;
+	max-width: 630px;
+	width: 100%;
+	text-align: center;
+	padding:30px;
+}
+
+.js-modal-wrapper h2{
+	font-family: 'Work Sans';
+	color:#000;
+	font-weight: 500;
+	font-size: 26px;
+}
+
+.js-modal-buttons{
+	display: flex;
+	justify-content: flex-end;
+}
+
+#js-modal-close{
+	cursor:pointer;
+	font-size:20px;
+}
+
+.modal-hidden{
+	display: none;
+}
+
+#js-modal-gallery{
+	display: grid;
+	grid-template-columns: repeat(5,1fr);
+	gap:10px;
+	margin:46px 0;
+}
+
+#js-modal-gallery figure{
+	position: relative;
+}
+
+#js-modal-gallery img{
+	max-width: 100%;
+}
+
+#js-modal-form{
+	display: none;
+}

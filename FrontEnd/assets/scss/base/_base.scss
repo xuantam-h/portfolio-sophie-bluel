@@ -1,0 +1,28 @@
+body {
+	max-width: toRem(1140);
+	margin:auto;
+	font-family: 'Work Sans';
+	font-size: toRem(14);
+}
+
+section {
+	margin: toRem(50) 0;
+}
+
+.hidden{
+	display: none;
+}
+
+.visible{
+	display: flex;
+}
+
+/** Reusable CSS classes **/
+.d-flex{
+	display: flex;
+}
+
+.flex-center{
+	align-items:center;
+	justify-content: center;
+}

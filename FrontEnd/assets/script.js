@@ -41,6 +41,8 @@ async function createGallery(arr, type) {
 
     const galleryDiv = document.querySelector(".gallery");
     galleryDiv.innerHTML = ""
+    const modalGallery = document.getElementById('js-modal-gallery')
+    modalGallery.innerHTML = ""
 
     // Loop the array and create <figure> for each element
     for (const work of works){
@@ -75,7 +77,6 @@ async function createGallery(arr, type) {
             })
             projectFigure.appendChild(deleteBtn)
 
-            const modalGallery = document.getElementById('js-modal-gallery')
             // Create <figure> child element into the modal section
             modalGallery.appendChild(projectFigure)
         }
