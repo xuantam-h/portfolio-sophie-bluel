@@ -33,8 +33,6 @@ async function loadCateg() {
     return await fetchData('categories')
 }
 
-let gallery
-
 // Function to create projects gallery
 async function createGallery(arr, type) {
     let works = await arr
@@ -74,6 +72,7 @@ async function createGallery(arr, type) {
             deleteBtn.addEventListener('click', () => {
                 const workId = work.id
                 fetchData(`works/${workId}`, 'DELETE')
+                projectFigure.remove()
             })
             projectFigure.appendChild(deleteBtn)
 
@@ -87,8 +86,6 @@ async function initializeGallery(){
     let works = await loadWorks()
     createGallery(works, 'gallery')
 }
-
-initializeGallery()
 
 // Create filters for projects
 async function createFilters() {
@@ -111,12 +108,19 @@ async function createFilters() {
     }
 }
 
-createFilters()
-
 async function filterEvent(e) {
     let works = await loadWorks()
     const filterId = await e.target.getAttribute('id')
-    e.target.classList.toggle('active-btn')
+    const categoriesFilter = Array.from(document.querySelectorAll('.filters-list li'));
+
+    for (let categoryFilter of categoriesFilter) {
+        if (filterId === e) {
+            e.target.classList.toggle('active-btn')
+        } else {
+            e.target.classList.remove('active-btn');
+        }
+    }
+
     const filteredWorks = await works.filter(work => work.categoryId == filterId)
     createGallery(filteredWorks, 'gallery')
 }
@@ -128,10 +132,12 @@ function createElem(el, container){
 }
 
 // Displays edit mode and all hidden elements if logged in / token exists
-if (token != null) {
-    displayAdmin()
-    logOut()
-} 
+function adminView() {
+    if (token != null) {
+        displayAdmin()
+        logOut()
+    } 
+}
 
 // Function logout() when logged in
 function logOut() {
@@ -186,3 +192,14 @@ editBtn.addEventListener('click', openModal)
 // Call closeModal() function when close button or modal wrapper are clicked
 modalClose.addEventListener('click', closeModal)
 modalMain.addEventListener('click', closeModal)
+
+// Main function when the website is loading
+async function initProject() {
+    initializeGallery()
+    createFilters()
+    adminView()
+}
+
+window.onload = () => {
+    initProject()
+}

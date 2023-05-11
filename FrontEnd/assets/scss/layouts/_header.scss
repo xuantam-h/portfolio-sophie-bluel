@@ -13,18 +13,15 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
-}
-
-li:hover {
-	color: #B1663C;
+	&:hover{
+		color: $secondary-color;
+	}
 }
 
 #edit-bar{
 	background-color: $black-color;
 	padding:toRem(10) 0;
-	position: fixed;
-	top:0;
-	left: 0;
 	text-align: center;
 	width: 100%;
+	@include pos-fixed;
 }

@@ -3,7 +3,7 @@ h1{
 	flex-direction: column;
 	font-family: $headings-font;
 	font-size: toRem(22);
-	font-weight: 800;
+	font-weight: $primary-title-weight;
 	color: $secondary-color;
 
     > span {
@@ -15,7 +15,7 @@ h1{
 
 h2{
 	font-family: $headings-font;
-	font-weight: 700;
+	font-weight: $title-weight;
 	font-size: toRem(30);
 	color: $primary-color;
 }

@@ -2,17 +2,16 @@ input[type="submit"], .btn, .active-btn, .filter-btn{
 	font-family: $headings-font;
 	font-weight: 700;
 	text-align: center;
-	border-radius: toRem(60);
+	border-radius: $btn-border-radius;
 	border:1px solid $primary-color;
 	text-decoration: none;
 	padding:toRem(9) toRem(30);
 }
 
 .filters-list{
-	display: flex;
 	gap:toRem(10);
-	justify-content: center;
 	margin:toRem(51) 0;
+	@include flex-center-horiz;
 	
 }
 .filter-btn{
@@ -41,7 +40,7 @@ input[type="submit"]{
 }
 
 .underlined-link{
-	color:#3D3D3D;
+	color:$gray-color;
 	font-size:toRem(14);
 	text-align: center;
 	display: block;
@@ -52,7 +51,7 @@ input[type="submit"]{
 }
 
 .colored-link{
-	color:$secondary-color;
+	color:$tertiary-color;
 	text-decoration: none;
 	font-size:toRem(14);
 	text-align: center;
@@ -70,6 +69,7 @@ input[type="submit"]{
 	color:$white-color;
 	text-decoration: none;
 	margin-right: toRem(21);
+	font-size: toRem(16);
 }
 
 .edit-btn-alt{

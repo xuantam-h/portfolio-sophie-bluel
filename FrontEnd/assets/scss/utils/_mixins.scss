@@ -23,3 +23,9 @@
     display: flex;
     justify-content: center;
 }
+
+@mixin pos-fixed{
+    position: fixed;
+	top:0;
+	left: 0;
+}
