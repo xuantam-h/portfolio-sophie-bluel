@@ -125,12 +125,6 @@ async function filterEvent(e) {
     createGallery(filteredWorks, 'gallery')
 }
 
-function createElem(el, container){
-    const newElem = document.createElement(el)
-    const containerDiv = document.querySelector(container)
-    containerDiv.appendChild(newElem)
-}
-
 // Displays edit mode and all hidden elements if logged in / token exists
 function adminView() {
     if (token != null) {
