@@ -93,6 +93,14 @@ async function createFilters() {
 
     const filtersList = document.querySelector(".filters-list")
 
+    // Create the "all" filter button first
+    let filterBtn = document.createElement("li")
+    filterBtn.classList.add("filter-btn")
+    filterBtn.setAttribute('id', 'all-filters')
+    filterBtn.innerText = 'Tous'
+    filtersList.appendChild(filterBtn)
+
+    // Looping array to create the remaining filters
     for (const category of categories){
         let filterBtn = document.createElement("li")
         filterBtn.classList.add("filter-btn")
@@ -108,18 +116,14 @@ async function createFilters() {
     }
 }
 
+// Function on click for filters
 async function filterEvent(e) {
     let works = await loadWorks()
     const filterId = await e.target.getAttribute('id')
     const categoriesFilter = Array.from(document.querySelectorAll('.filters-list li'));
 
-    for (let categoryFilter of categoriesFilter) {
-        if (filterId === e) {
-            e.target.classList.toggle('active-btn')
-        } else {
-            e.target.classList.remove('active-btn');
-        }
-    }
+    console.log(filterId);
+    console.log(categoriesFilter);
 
     const filteredWorks = await works.filter(work => work.categoryId == filterId)
     createGallery(filteredWorks, 'gallery')

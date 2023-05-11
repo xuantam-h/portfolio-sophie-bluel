@@ -2,19 +2,23 @@ header {
 	display: flex;
 	justify-content: space-between;
 	margin: toRem(50) 0;
-}
 
-nav ul {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-}
+	nav{
+		ul{
+			@include flex-center;
+			list-style-type: none;
+			li{
+				padding: 0 toRem(10);
+				font-size: 1.2em;
+				&:hover{
+					color: $secondary-color;
+				}
 
-nav li {
-	padding: 0 10px;
-	font-size: 1.2em;
-	&:hover{
-		color: $secondary-color;
+				img{
+					width: toRem(19);
+				}
+			}
+		}
 	}
 }
 
@@ -24,4 +28,5 @@ nav li {
 	text-align: center;
 	width: 100%;
 	@include pos-fixed;
+	z-index: 1;
 }

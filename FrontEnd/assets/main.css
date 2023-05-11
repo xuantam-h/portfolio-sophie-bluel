@@ -278,19 +278,21 @@ header {
   justify-content: space-between;
   margin: 3.125rem 0;
 }
-
-nav ul {
+header nav ul {
   display: flex;
   align-items: center;
+  justify-content: center;
   list-style-type: none;
 }
-
-nav li {
-  padding: 0 10px;
+header nav ul li {
+  padding: 0 0.625rem;
   font-size: 1.2em;
 }
-nav li:hover {
+header nav ul li:hover {
   color: #B1663C;
+}
+header nav ul li img {
+  width: 1.1875rem;
 }
 
 #edit-bar {
@@ -301,6 +303,7 @@ nav li:hover {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 footer nav ul {
