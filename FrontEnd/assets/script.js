@@ -54,15 +54,20 @@ async function createGallery(arr, type) {
 
         // Create <figcaption> element and fill the element
         const projectName = document.createElement("figcaption")
-        projectName.innerText = work.title
-        projectFigure.appendChild(projectName)
+        
 
         if (type === 'gallery') {
+            projectName.innerText = work.title
+            projectFigure.appendChild(projectName)
+
             // Create <figure> child element into the gallery section
             galleryDiv.appendChild(projectFigure)
         }
 
         if (type === 'modal') {
+            projectName.innerText = 'editer'
+            projectFigure.appendChild(projectName)
+
             // Create delete button in modal ONLY
             const deleteBtn = document.createElement("button")
             deleteBtn.classList.add('delete-btn')
@@ -95,10 +100,11 @@ async function createFilters() {
 
     // Create the "all" filter button first
     let filterBtn = document.createElement("li")
-    filterBtn.classList.add("filter-btn")
+    filterBtn.classList.add("filter-btn", "active-btn")
     filterBtn.setAttribute('id', 'all-filters')
     filterBtn.innerText = 'Tous'
     filtersList.appendChild(filterBtn)
+    filterBtn.addEventListener("click", filterEvent)
 
     // Looping array to create the remaining filters
     for (const category of categories){
@@ -120,13 +126,24 @@ async function createFilters() {
 async function filterEvent(e) {
     let works = await loadWorks()
     const filterId = await e.target.getAttribute('id')
-    const categoriesFilter = Array.from(document.querySelectorAll('.filters-list li'));
+    const categoriesFilter = Array.from(document.querySelectorAll('.filters-list li'))
 
-    console.log(filterId);
-    console.log(categoriesFilter);
+    for (let categoryFilter of categoriesFilter) {
+        const categoryId = categoryFilter.getAttribute('id')
+        if (filterId == categoryId) {
+            categoryFilter.classList.add('active-btn')
+        } else {
+            categoryFilter.classList.remove('active-btn')
+        }
+    }
 
-    const filteredWorks = await works.filter(work => work.categoryId == filterId)
-    createGallery(filteredWorks, 'gallery')
+    // Return filtered array on click, return entire works if "all" filter is clicked
+    if (filterId != 'all-filters') {
+        const filteredWorks = await works.filter(work => work.categoryId == filterId)
+        createGallery(filteredWorks, 'gallery')
+    } else {
+        createGallery(works, 'gallery')
+    }
 }
 
 // Displays edit mode and all hidden elements if logged in / token exists

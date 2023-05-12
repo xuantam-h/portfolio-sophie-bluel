@@ -185,6 +185,7 @@ input[type=submit] {
 }
 
 .delete-btn {
+  width: 1.5rem;
   background-color: #000;
   padding: 0.25rem;
   border-radius: 0.125rem;
@@ -263,6 +264,7 @@ input[type=submit] {
 
 #js-modal-gallery figure {
   position: relative;
+  text-align: left;
 }
 
 #js-modal-gallery img {
