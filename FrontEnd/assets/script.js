@@ -4,11 +4,12 @@ const url = 'http://localhost:5678/api/'
 let token = window.localStorage.getItem('token')
 
 // Access to API depending on types and methods
-async function fetchData(type, method) {
+async function fetchData(type, method, bodyObject) {
 
     const options = {
         method: method,
-        headers: {'accept': 'application/json'}
+        headers: {'accept': 'application/json'},
+        body: bodyObject
     }
 
     // Change the headers depending on the method of the API
@@ -143,6 +144,41 @@ async function filterEvent(e) {
         createGallery(filteredWorks, 'gallery')
     } else {
         createGallery(works, 'gallery')
+    }
+}
+
+// Switch modal div
+const submitBtn = document.getElementById('submit-btn')
+submitBtn.addEventListener('click', () => {
+    const modalEditMode = document.getElementById('js-modal-edit')
+    const modalSubmitMode = document.getElementById('js-modal-form')
+    modalEditMode.classList.add('hidden')
+    modalSubmitMode.classList.add('visible')
+})
+
+// Submit work function, Fetch POST
+const submitForm = document.getElementById('submit-form')
+submitForm.addEventListener('submit', submitWork)
+
+// Submit work function, Fetch POST
+async function submitWork(e) {
+    e.preventDefault()
+
+    const formFile = document.getElementById('work-file')
+    const formTitle = document.getElementById('work-title').value
+    const formCat = document.getElementById('work-category').value
+
+    // Checking if all inputs are defined
+    if (formFile == null || formTitle == null || formCat == null) {
+        alert('TEST')
+    } else {
+        // Create FormData object with input values
+        const formData = new FormData()
+        formData.append('file', formFile.files[0])
+        formData.append('title', formTitle)
+        formData.append('category', formCat)
+
+        fetchData('works', 'POST', formData)
     }
 }
 

@@ -73,12 +73,15 @@
 				<div id="js-modal-gallery">
 						
 				</div>
-				<button class="active-btn">Ajouter une photo</button>
+				<button class="active-btn" id="submit-btn">Ajouter une photo</button>
 				<a href="#" class="colored-link">Supprimer la galerie</a>
 			</div>
 			<div id="js-modal-form">
 				<h2>Ajout photo</h2>
-				<form action="">
+				<form action="#" method="post" id="submit-form">
+					<div class="file-container">
+						<input type="file" name="work-file" id="work-file" accept="image/png, image/jpeg">
+					</div>
 					<label for="work-title">Titre</label>
 					<input type="text" name="work-title" id="work-title">
 					<label for="work-category">Catégorie</label>

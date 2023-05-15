@@ -67,8 +67,25 @@ section {
   margin: 3.125rem 0;
 }
 
+form {
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+form input, form select, form textarea {
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  padding: 1rem;
+}
+form label {
+  text-align: left;
+  margin: 2em 0 1em 0;
+}
+
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .visible {
@@ -127,6 +144,7 @@ input[type=submit], .btn, .active-btn, .filter-btn {
   background-color: #FFF;
   color: #1D6154;
   border-color: #1D6154;
+  cursor: pointer;
 }
 
 input[type=submit], .active-btn {
@@ -275,6 +293,11 @@ input[type=submit] {
   display: none;
 }
 
+.file-container {
+  background-color: #E8F1F6;
+  border-radius: 0.1875rem;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -364,24 +387,6 @@ footer nav ul {
 }
 #contact h2 {
   margin-bottom: 20px;
-}
-#contact form {
-  text-align: left;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-}
-#contact form input {
-  font-size: 1.2em;
-  border: none;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-#contact form textarea {
-  border: none;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-#contact form label {
-  margin: 2em 0 1em 0;
 }
 
 i.fa-pen-to-square {

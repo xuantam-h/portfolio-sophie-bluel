@@ -18,6 +18,7 @@ input[type="submit"], .btn, .active-btn, .filter-btn{
 	background-color: $white-color;
 	color:$primary-color;
 	border-color:$primary-color;
+	cursor: pointer;
 }
 
 input[type="submit"], .active-btn{
