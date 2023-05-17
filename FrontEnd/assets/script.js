@@ -8,7 +8,9 @@ async function fetchData(type, method, bodyObject) {
 
     const options = {
         method: method,
-        headers: {'accept': 'application/json'},
+        headers: {
+        'Accept': 'application/json'
+        },
         body: bodyObject
     }
 
@@ -17,9 +19,12 @@ async function fetchData(type, method, bodyObject) {
 
     const response = await fetch(url + type, options);
     if (response.ok === true){
-        const data = await response.json();
-        console.log(data);
-        return data;
+        if (method === 'GET') {
+            const data = await response.json()
+            return data
+        } else {
+            return response
+        }
     } else {
         alert("Impossible de communiquer avec l'API")
     }
@@ -27,11 +32,11 @@ async function fetchData(type, method, bodyObject) {
 
 // Access to API /works
 async function loadWorks() {
-    return await fetchData('works')
+    return await fetchData('works', 'GET')
 }
 // Access to API /categories
 async function loadCateg() {
-    return await fetchData('categories')
+    return await fetchData('categories', 'GET')
 }
 
 // Function to create projects gallery
@@ -86,6 +91,7 @@ async function createGallery(arr, type) {
             modalGallery.appendChild(projectFigure)
         }
     }
+    
 }
 
 async function initializeGallery(){
@@ -147,6 +153,20 @@ async function filterEvent(e) {
     }
 }
 
+// Function to get the categories in Modal form
+async function getCategoriesSelect(){
+    let categories = await loadCateg()
+    const categorySelect = document.getElementById('work-category')
+
+    for (let category of categories) {
+        const categoryOption = document.createElement('option')
+        categoryOption.value = category.id
+        categoryOption.id = category.id
+        categoryOption.innerText = category.name
+        categorySelect.appendChild(categoryOption)
+    }
+}
+
 // Switch modal div
 const submitBtn = document.getElementById('submit-btn')
 submitBtn.addEventListener('click', () => {
@@ -154,11 +174,11 @@ submitBtn.addEventListener('click', () => {
     const modalSubmitMode = document.getElementById('js-modal-form')
     modalEditMode.classList.add('hidden')
     modalSubmitMode.classList.add('visible')
-})
 
-// Submit work function, Fetch POST
-const submitForm = document.getElementById('submit-form')
-submitForm.addEventListener('submit', submitWork)
+    // Submit work function, Fetch POST
+    const submitForm = document.getElementById('submit-form')
+    submitForm.addEventListener('submit', submitWork)
+})
 
 // Submit work function, Fetch POST
 async function submitWork(e) {
@@ -167,18 +187,24 @@ async function submitWork(e) {
     const formFile = document.getElementById('work-file')
     const formTitle = document.getElementById('work-title').value
     const formCat = document.getElementById('work-category').value
+    const intCat = parseInt(formCat)
+    console.log(intCat)
 
     // Checking if all inputs are defined
-    if (formFile == null || formTitle == null || formCat == null) {
-        alert('TEST')
+    if (!formFile || !formTitle || !formCat) {
+        alert('Veuillez renseigner tous les champs')
     } else {
         // Create FormData object with input values
         const formData = new FormData()
-        formData.append('file', formFile.files[0])
+        formData.append('image', formFile.files[0])
         formData.append('title', formTitle)
         formData.append('category', formCat)
 
-        fetchData('works', 'POST', formData)
+        await fetchData('works', 'POST', formData)
+
+        // Closes modal and refreshing gallery
+        closeModal(e)
+        await initializeGallery()
     }
 }
 
@@ -221,7 +247,8 @@ const openModal = async function (e) {
     modalMain.classList.add('visible')
     document.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     let works = await loadWorks()
-    createGallery(works, 'modal')
+    await createGallery(works, 'modal')
+    getCategoriesSelect()
 }
 
 const closeModal = function (e) {
