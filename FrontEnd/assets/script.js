@@ -254,6 +254,7 @@ const openModal = async function (e) {
 const closeModal = function (e) {
     e.preventDefault()
     modalMain.classList.add('modal-hidden')
+    modalMain.classList.remove('visible')
     modalMain.setAttribute('aria-hidden','true')
     modalMain.removeAttribute('aria-modal')
     modalMain.removeEventListener('click', stopPropagation)

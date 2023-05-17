@@ -89,7 +89,7 @@ form label {
 }
 
 .visible {
-  display: flex;
+  display: flex !important;
 }
 
 /** Reusable CSS classes **/
