@@ -60,7 +60,10 @@ async function createGallery(arr, type) {
 
         // Create <figcaption> element and fill the element
         const projectName = document.createElement("figcaption")
-        
+
+        // Create <div> containing modal gallery buttons
+        const modalGalleryBtn = document.createElement("div")
+        modalGalleryBtn.classList.add('js-modal-gallery-btn')
 
         if (type === 'gallery') {
             projectName.innerText = work.title
@@ -80,18 +83,33 @@ async function createGallery(arr, type) {
             const deleteIcon = document.createElement("i")
             deleteIcon.classList.add('fa-solid', 'fa-trash-can')
             deleteBtn.appendChild(deleteIcon)
-            deleteBtn.addEventListener('click', () => {
+            deleteBtn.addEventListener('click', async (e) => {
                 const workId = work.id
                 fetchData(`works/${workId}`, 'DELETE')
                 projectFigure.remove()
+                closeModal(e)
+                await initializeGallery()
             })
-            projectFigure.appendChild(deleteBtn)
+            modalGalleryBtn.appendChild(deleteBtn)
+            projectFigure.appendChild(modalGalleryBtn)
 
             // Create <figure> child element into the modal section
             modalGallery.appendChild(projectFigure)
         }
     }
-    
+
+    // Create move button in modal and FIRST image ONLY
+    if (type === 'modal') {
+        const modalGalleryElem = document.querySelectorAll('#js-modal-gallery figure')
+        const modalGalleryArr = Array.from(modalGalleryElem)
+        
+        const moveBtn = document.createElement("button")
+        moveBtn.classList.add('move-btn')
+        const moveIcon = document.createElement("i")
+        moveIcon.classList.add('fa-solid', 'fa-up-down-left-right')
+        moveBtn.appendChild(moveIcon)
+        modalGalleryArr[0].querySelector('.js-modal-gallery-btn').appendChild(moveBtn)
+    }
 }
 
 async function initializeGallery(){
@@ -188,7 +206,6 @@ async function submitWork(e) {
     const formTitle = document.getElementById('work-title').value
     const formCat = document.getElementById('work-category').value
     const intCat = parseInt(formCat)
-    console.log(intCat)
 
     // Checking if all inputs are defined
     if (!formFile || !formTitle || !formCat) {
@@ -248,7 +265,6 @@ const openModal = async function (e) {
     document.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     let works = await loadWorks()
     await createGallery(works, 'modal')
-    getCategoriesSelect()
 }
 
 const closeModal = function (e) {
@@ -276,6 +292,7 @@ modalMain.addEventListener('click', closeModal)
 async function initProject() {
     initializeGallery()
     createFilters()
+    getCategoriesSelect()
     adminView()
 }
 

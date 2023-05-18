@@ -77,14 +77,12 @@ input[type="submit"]{
 	color:$black-color;
 }
 
-.delete-btn{
+.delete-btn, .move-btn{
 	width: toRem(24);
 	background-color:$black-color;
 	padding:toRem(4);
 	border-radius: toRem(2);
-	position: absolute;
-	top:toRem(10);
-	right:toRem(10);
 	color:$white-color;
 	border:none;
+	cursor: pointer;
 }

@@ -16,24 +16,26 @@
 	width: 100%;
 	text-align: center;
 	padding:toRem(30);
+	
+	h2{
+		font-family: 'Work Sans';
+		color:#000;
+		font-weight: 500;
+		font-size: toRem(26);
+	}
+
+	.js-modal-buttons{
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	#js-modal-close{
+		cursor:pointer;
+		font-size:toRem(20);
+	}
+
 }
 
-.js-modal-wrapper h2{
-	font-family: 'Work Sans';
-	color:#000;
-	font-weight: 500;
-	font-size: toRem(26);
-}
-
-.js-modal-buttons{
-	display: flex;
-	justify-content: flex-end;
-}
-
-#js-modal-close{
-	cursor:pointer;
-	font-size:toRem(20);
-}
 
 .modal-hidden{
 	display: none;
@@ -44,19 +46,29 @@
 	grid-template-columns: repeat(5,1fr);
 	gap:toRem(10);
 	margin:toRem(46) 0;
-}
 
-#js-modal-gallery figure{
-	position: relative;
-	text-align: left;
-}
+	figure{
+		position: relative;
+		text-align: left;
+	}
 
-#js-modal-gallery img{
-	max-width: 100%;
+	img{
+		max-width: 100%;
+	}
 }
 
 #js-modal-form{
 	display: none;
+	flex-direction: column;
+}
+
+.js-modal-gallery-btn{
+	position: absolute;
+	top:toRem(10);
+	right:toRem(10);
+	display: flex;
+	flex-direction: row-reverse;
+	gap:toRem(4);
 }
 
 .file-container{
