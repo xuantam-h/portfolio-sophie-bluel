@@ -16,6 +16,11 @@ loginForm.addEventListener('submit', async function(e){
     // Convert the data into JSON
     const formJSON = JSON.stringify(loginData)
 
+    if (userMail === '' || userPwd === '') {
+        loginFeedback.innerText = '<i class="fa-solid fa-triangle-exclamation"></i>Tous les champs du formulaire doivent être remplis.'
+        return
+    }
+
     // Access to API /login with POST method
     const r = await fetch('http://localhost:5678/api/users/login', {
         method: "POST",
@@ -30,10 +35,12 @@ loginForm.addEventListener('submit', async function(e){
 
     // Handling errors + actions if response is fulfilled
     if (r.ok === true){
+        // Adding token in localstorage and redirect to index.html
         window.localStorage.setItem("token", tokenId);
         location.href = 'index.html'
     } else {
-        alert("Erreur dans l'identifiant ou le mot de passe")
+        // Display error
+        loginFeedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>Erreur dans l’identifiant ou le mot de passe.`
     }
 
 })

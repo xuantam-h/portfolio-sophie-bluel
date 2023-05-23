@@ -108,6 +108,9 @@ async function createGallery(arr, type) {
         const moveIcon = document.createElement("i")
         moveIcon.classList.add('fa-solid', 'fa-up-down-left-right')
         moveBtn.appendChild(moveIcon)
+        moveBtn.addEventListener('click', () => {
+            alert('Fonctionnalité non disponible pour le moment')
+        })
         modalGalleryArr[0].querySelector('.js-modal-gallery-btn').appendChild(moveBtn)
     }
 }
@@ -237,9 +240,10 @@ function adminView() {
 function logOut() {
     const logBtn = document.getElementById('log-btn')
     logBtn.innerText = 'logout'
-    logBtn.addEventListener('click', () => {
+    logBtn.addEventListener('click', (e) => {
+        e.preventDefault()
         window.localStorage.removeItem('token')
-        location.href = 'login.html'
+        window.location.reload()
     })
 }
 

@@ -17,6 +17,13 @@ header {
 				img{
 					width: toRem(19);
 				}
+
+				a{
+					text-decoration: none;
+					&:visited{
+						color:$black-color;
+					}
+				}
 			}
 		}
 	}
