@@ -45,3 +45,13 @@ form{
 	align-items:center;
 	justify-content: center;
 }
+
+#error-feedback{
+	color:red;
+	font-weight: bold;
+	margin-top:toRem(32);
+
+	i{
+		margin-right:toRem(10);
+	}
+}

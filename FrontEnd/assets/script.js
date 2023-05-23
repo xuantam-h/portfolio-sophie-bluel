@@ -40,11 +40,40 @@ async function loadCateg() {
 }
 
 // Function to create projects gallery
-async function createGallery(arr, type) {
+async function createGallery(arr) {
     let works = await arr
 
     const galleryDiv = document.querySelector(".gallery");
     galleryDiv.innerHTML = ""
+
+    // Loop the array and create <figure> for each element
+    for (const work of works){
+        const projectFigure = document.createElement("figure")
+        const projectImg = document.createElement("img")
+
+        // Create <img> element and fill the attributes src, alt
+        projectImg.src = work.imageUrl
+        projectImg.alt = work.title
+        projectFigure.appendChild(projectImg)
+
+        // Create <figcaption> element and fill the element
+        const projectName = document.createElement("figcaption")
+
+        // Create <div> containing modal gallery buttons
+        const modalGalleryBtn = document.createElement("div")
+        modalGalleryBtn.classList.add('js-modal-gallery-btn')
+
+        projectName.innerText = work.title
+        projectFigure.appendChild(projectName)
+
+        // Create <figure> child element into the gallery section
+        galleryDiv.appendChild(projectFigure)
+    }
+}
+
+async function createGalleryModal(arr) {
+    let works = await arr
+
     const modalGallery = document.getElementById('js-modal-gallery')
     modalGallery.innerHTML = ""
 
@@ -65,41 +94,30 @@ async function createGallery(arr, type) {
         const modalGalleryBtn = document.createElement("div")
         modalGalleryBtn.classList.add('js-modal-gallery-btn')
 
-        if (type === 'gallery') {
-            projectName.innerText = work.title
-            projectFigure.appendChild(projectName)
+        projectName.innerText = 'editer'
+        projectFigure.appendChild(projectName)
 
-            // Create <figure> child element into the gallery section
-            galleryDiv.appendChild(projectFigure)
-        }
-
-        if (type === 'modal') {
-            projectName.innerText = 'editer'
-            projectFigure.appendChild(projectName)
-
-            // Create delete button in modal ONLY
-            const deleteBtn = document.createElement("button")
-            deleteBtn.classList.add('delete-btn')
-            const deleteIcon = document.createElement("i")
-            deleteIcon.classList.add('fa-solid', 'fa-trash-can')
-            deleteBtn.appendChild(deleteIcon)
-            deleteBtn.addEventListener('click', async (e) => {
-                const workId = work.id
-                fetchData(`works/${workId}`, 'DELETE')
-                projectFigure.remove()
-                closeModal(e)
-                await initializeGallery()
+        // Create delete button in modal ONLY
+        const deleteBtn = document.createElement("button")
+        deleteBtn.classList.add('delete-btn')
+        const deleteIcon = document.createElement("i")
+        deleteIcon.classList.add('fa-solid', 'fa-trash-can')
+        deleteBtn.appendChild(deleteIcon)
+        deleteBtn.addEventListener('click', async (e) => {
+            const workId = work.id
+            fetchData(`works/${workId}`, 'DELETE')
+            projectFigure.remove()
+            closeModal(e)
+            await initializeGallery()
             })
-            modalGalleryBtn.appendChild(deleteBtn)
-            projectFigure.appendChild(modalGalleryBtn)
+        modalGalleryBtn.appendChild(deleteBtn)
+        projectFigure.appendChild(modalGalleryBtn)
 
-            // Create <figure> child element into the modal section
-            modalGallery.appendChild(projectFigure)
+        // Create <figure> child element into the modal section
+        modalGallery.appendChild(projectFigure)
         }
-    }
 
     // Create move button in modal and FIRST image ONLY
-    if (type === 'modal') {
         const modalGalleryElem = document.querySelectorAll('#js-modal-gallery figure')
         const modalGalleryArr = Array.from(modalGalleryElem)
         
@@ -109,15 +127,14 @@ async function createGallery(arr, type) {
         moveIcon.classList.add('fa-solid', 'fa-up-down-left-right')
         moveBtn.appendChild(moveIcon)
         moveBtn.addEventListener('click', () => {
-            alert('Fonctionnalité non disponible pour le moment')
+            alert('Fonctionnalité indisponible pour le moment')
         })
         modalGalleryArr[0].querySelector('.js-modal-gallery-btn').appendChild(moveBtn)
-    }
 }
 
 async function initializeGallery(){
     let works = await loadWorks()
-    createGallery(works, 'gallery')
+    createGallery(works)
 }
 
 // Create filters for projects
@@ -168,9 +185,9 @@ async function filterEvent(e) {
     // Return filtered array on click, return entire works if "all" filter is clicked
     if (filterId != 'all-filters') {
         const filteredWorks = await works.filter(work => work.categoryId == filterId)
-        createGallery(filteredWorks, 'gallery')
+        createGallery(filteredWorks)
     } else {
-        createGallery(works, 'gallery')
+        createGallery(works)
     }
 }
 
@@ -199,26 +216,36 @@ submitBtn.addEventListener('click', () => {
     // Submit work function, Fetch POST
     const submitForm = document.getElementById('submit-form')
     submitForm.addEventListener('submit', submitWork)
+    const formFile = document.getElementById('work-file')
+    formFile.addEventListener('change', () => {
+        const filePreviewContainer = document.querySelector('.file-upload-preview')
+        const fileUploadForm = document.querySelector('.file-upload-form')
+        const previewImg = document.createElement('img')
+        previewImg.src = URL.createObjectURL(formFile.files[0])
+        filePreviewContainer.appendChild(previewImg)
+        fileUploadForm.style.display = 'none'
+    })
 })
+
 
 // Submit work function, Fetch POST
 async function submitWork(e) {
     e.preventDefault()
-
     const formFile = document.getElementById('work-file')
     const formTitle = document.getElementById('work-title').value
     const formCat = document.getElementById('work-category').value
-    const intCat = parseInt(formCat)
+    const errorFeedback = document.getElementById('error-feedback')
+    
 
     // Checking if all inputs are defined
     if (!formFile || !formTitle || !formCat) {
-        alert('Veuillez renseigner tous les champs')
+        errorFeedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>Veuillez renseigner tous les champs du formulaire.'
     } else {
         // Create FormData object with input values
         const formData = new FormData()
         formData.append('image', formFile.files[0])
         formData.append('title', formTitle)
-        formData.append('category', formCat)
+        formData.append('category', parseInt(formCat))
 
         await fetchData('works', 'POST', formData)
 
@@ -268,7 +295,7 @@ const openModal = async function (e) {
     modalMain.classList.add('visible')
     document.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     let works = await loadWorks()
-    await createGallery(works, 'modal')
+    await createGalleryModal(works)
 }
 
 const closeModal = function (e) {
@@ -285,8 +312,10 @@ const stopPropagation = function (e) {
     e.stopPropagation()
 }
 
-// Call openModal() function when edit button is clicked
+// Call openModal() function when edit button is clicked or back button
 editBtn.addEventListener('click', openModal)
+const backBtn = document.getElementById('js-modal-return')
+backBtn.addEventListener('click', closeModal)
 
 // Call closeModal() function when close button or modal wrapper are clicked
 modalClose.addEventListener('click', closeModal)

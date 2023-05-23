@@ -31,6 +31,13 @@ input[type="submit"]{
 	width: toRem(180);
 }
 
+.upload-btn{
+	border-color:#CBD6DC;
+	background-color: #CBD6DC;
+	color:#306685;
+	font-family: $text-font;
+}
+
 .w-btn{
 	background-color: $white-color;
 	color:$black-color;
@@ -38,6 +45,11 @@ input[type="submit"]{
 	display: inline-block;
 	border-color: $white-color;
 	font-family: 'Work Sans';
+}
+
+.disabled-btn{
+	color:$white-color;
+	background-color: $disabled-color
 }
 
 .underlined-link{

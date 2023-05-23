@@ -2,7 +2,7 @@
 const loginForm = document.getElementById('login-form')
 const userMail = document.getElementById('user-email')
 const userPwd = document.getElementById('user-password')
-const loginFeedback = document.getElementById('login-feedback')
+const loginFeedback = document.getElementById('error-feedback')
 
 loginForm.addEventListener('submit', async function(e){
     e.preventDefault()
@@ -17,7 +17,7 @@ loginForm.addEventListener('submit', async function(e){
     const formJSON = JSON.stringify(loginData)
 
     if (userMail === '' || userPwd === '') {
-        loginFeedback.innerText = '<i class="fa-solid fa-triangle-exclamation"></i>Tous les champs du formulaire doivent être remplis.'
+        loginFeedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>Tous les champs du formulaire doivent être remplis.'
         return
     }
 

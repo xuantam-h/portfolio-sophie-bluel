@@ -102,6 +102,15 @@ form label {
   justify-content: center;
 }
 
+#error-feedback {
+  color: red;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+#error-feedback i {
+  margin-right: 0.625rem;
+}
+
 h1 {
   display: flex;
   flex-direction: column;
@@ -157,6 +166,13 @@ input[type=submit] {
   width: 11.25rem;
 }
 
+.upload-btn {
+  border-color: #CBD6DC;
+  background-color: #CBD6DC;
+  color: #306685;
+  font-family: "Work Sans", sans-serif;
+}
+
 .w-btn {
   background-color: #FFF;
   color: #000;
@@ -164,6 +180,11 @@ input[type=submit] {
   display: inline-block;
   border-color: #FFF;
   font-family: "Work Sans";
+}
+
+.disabled-btn {
+  color: #FFF;
+  background-color: #A7A7A7;
 }
 
 .underlined-link {
@@ -257,7 +278,7 @@ input[type=submit] {
 }
 .js-modal-wrapper .js-modal-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 .js-modal-wrapper .js-modal-buttons button {
   font-family: inherit; /* 1 */
@@ -274,6 +295,12 @@ input[type=submit] {
 .js-modal-wrapper .js-modal-cta {
   padding-top: 2.375rem;
   border-top: 1px solid #B3B3B3;
+}
+
+#js-modal-edit, #js-modal-form {
+  max-width: 80%;
+  margin: 0.9375rem auto 3rem auto;
+  box-sizing: border-box;
 }
 
 .modal-hidden {
@@ -297,6 +324,7 @@ input[type=submit] {
 #js-modal-form {
   display: none;
   flex-direction: column;
+  text-align: center;
 }
 
 .js-modal-gallery-btn {
@@ -311,6 +339,19 @@ input[type=submit] {
 .file-container {
   background-color: #E8F1F6;
   border-radius: 0.1875rem;
+  padding: 1.75rem 0;
+  text-align: center;
+}
+.file-container .file-upload-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.file-container #file-limit {
+  font-size: 0.625rem;
+  color: #444;
+  margin-top: 0.4375rem;
 }
 
 header {
@@ -418,12 +459,4 @@ i.fa-pen-to-square {
   text-align: center;
   max-width: 50%;
   margin: auto;
-}
-#login-container #login-feedback {
-  color: red;
-  font-weight: bold;
-  margin-top: 2rem;
-}
-#login-container #login-feedback i {
-  margin-right: 0.625rem;
 }/*# sourceMappingURL=main.css.map */

@@ -26,7 +26,7 @@
 
 	.js-modal-buttons{
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 
 		button{
 			font-family: inherit; /* 1 */
@@ -50,6 +50,11 @@
 
 }
 
+#js-modal-edit, #js-modal-form{
+	max-width: 80%;
+	margin: toRem(15) auto toRem(48) auto;
+	box-sizing: border-box;
+}
 
 .modal-hidden{
 	display: none;
@@ -74,6 +79,7 @@
 #js-modal-form{
 	display: none;
 	flex-direction: column;
+	text-align: center;
 }
 
 .js-modal-gallery-btn{
@@ -88,4 +94,16 @@
 .file-container{
 	background-color:$gray-blue;
 	border-radius: toRem(3);
+	padding:toRem(28) 0;
+	text-align: center;
+
+	.file-upload-form{
+		@include flex-center-column;
+	}
+
+	#file-limit{
+		font-size: toRem(10);
+		color:$medium-gray-color;
+		margin-top: toRem(7);
+	}	
 }
