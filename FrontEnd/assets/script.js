@@ -217,16 +217,24 @@ submitBtn.addEventListener('click', () => {
     const submitForm = document.getElementById('submit-form')
     submitForm.addEventListener('submit', submitWork)
     const formFile = document.getElementById('work-file')
+
     formFile.addEventListener('change', () => {
         const filePreviewContainer = document.querySelector('.file-upload-preview')
         const fileUploadForm = document.querySelector('.file-upload-form')
         const previewImg = document.createElement('img')
-        previewImg.src = URL.createObjectURL(formFile.files[0])
-        filePreviewContainer.appendChild(previewImg)
-        fileUploadForm.style.display = 'none'
-    })
-})
+        const fileMaxSize = 4000000
 
+        // Testing if the uploaded file is bigger than 4MB
+        if (formFile.files[0].size > fileMaxSize) {
+            alert('Le fichier importé est trop volumineux.')
+        } else {
+            previewImg.src = URL.createObjectURL(formFile.files[0])
+            filePreviewContainer.appendChild(previewImg)
+            fileUploadForm.style.display = 'none'
+        }
+    })
+
+})
 
 // Submit work function, Fetch POST
 async function submitWork(e) {
@@ -253,6 +261,14 @@ async function submitWork(e) {
         closeModal(e)
         await initializeGallery()
     }
+}
+
+function switchModeBack() {
+    const modalEditMode = document.getElementById('js-modal-edit')
+    const modalSubmitMode = document.getElementById('js-modal-form')
+    modalSubmitMode.classList.add('hidden')
+    modalSubmitMode.classList.remove('visible')
+    modalEditMode.classList.remove('hidden')
 }
 
 // Displays edit mode and all hidden elements if logged in / token exists
@@ -283,7 +299,7 @@ function displayAdmin(){
 }
 
 // Modal functions
-const editBtn = document.getElementById('edit-btn')
+const editBtn = document.querySelectorAll('.edit-btn')
 const modalMain = document.getElementById('js-modal')
 const modalClose = document.getElementById('js-modal-close')
 
@@ -312,10 +328,13 @@ const stopPropagation = function (e) {
     e.stopPropagation()
 }
 
-// Call openModal() function when edit button is clicked or back button
-editBtn.addEventListener('click', openModal)
+// Call openModal() function when edit buttons are clicked or back button
+for (editBtnSingle of editBtn) {
+    editBtnSingle.addEventListener('click', openModal)
+}
+
 const backBtn = document.getElementById('js-modal-return')
-backBtn.addEventListener('click', closeModal)
+backBtn.addEventListener('click', switchModeBack)
 
 // Call closeModal() function when close button or modal wrapper are clicked
 modalClose.addEventListener('click', closeModal)

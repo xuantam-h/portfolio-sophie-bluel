@@ -46,6 +46,7 @@
 	.js-modal-cta{
 		padding-top:toRem(38);
 		border-top:1px solid $lightest-gray-color;
+		text-align: center;
 	}
 
 }
@@ -101,9 +102,19 @@
 		@include flex-center-column;
 	}
 
+	.file-upload-preview{
+		img{
+			max-width: 100%;
+		}
+	}
+
 	#file-limit{
 		font-size: toRem(10);
 		color:$medium-gray-color;
 		margin-top: toRem(7);
-	}	
+	}
+	
+	#work-file{
+		display: none;
+	}
 }

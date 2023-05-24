@@ -30,9 +30,12 @@
 </header>
 <main>
 	<section id="introduction">
-		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-		</figure>
+		<div class="introduction-image">
+			<figure>
+				<img src="./assets/images/sophie-bluel.png" alt="">
+			</figure>
+			<button class="edit-btn edit-btn-alt hidden" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> modifier</button>
+		</div>
 		<article>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
@@ -85,8 +88,10 @@
 					<div class="file-container">
 						<div class="file-upload-form">
 							<img src="assets/icons/image-upload.svg" alt="Upload image icon">
+							<label for="work-file">
+								<a class="btn upload-btn">+ Ajouter photo</a>
+							</label>
 							<input type="file" name="work-file" id="work-file" accept="image/png, image/jpeg">
-							<button class="btn upload-btn">+ Ajouter photo</button>
 							<p id="file-limit">jpg, png : 4mo max</p>
 						</div>
 						<div class="file-upload-preview">
