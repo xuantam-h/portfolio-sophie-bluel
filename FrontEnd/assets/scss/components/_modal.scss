@@ -35,13 +35,16 @@
 			margin: 0; /* 2 */
 			background: transparent;
 			border:none;
+			cursor:pointer;
+			font-size:toRem(20);
+		}
+
+		#js-modal-return{
+			visibility: hidden;
 		}
 	}
 
-	#js-modal-close{
-		cursor:pointer;
-		font-size:toRem(20);
-	}
+	
 
 	.js-modal-cta{
 		padding-top:toRem(38);

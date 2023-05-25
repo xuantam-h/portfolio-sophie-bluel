@@ -205,12 +205,13 @@ async function getCategoriesSelect(){
     }
 }
 
-// Switch modal div
-const submitBtn = document.getElementById('submit-btn')
-submitBtn.addEventListener('click', () => {
-    const modalEditMode = document.getElementById('js-modal-edit')
+// Modal submit work mode
+const modalEditMode = () => {
+    const modalEditModeDiv = document.getElementById('js-modal-edit')
     const modalSubmitMode = document.getElementById('js-modal-form')
-    modalEditMode.classList.add('hidden')
+    const backBtn = document.getElementById('js-modal-return')
+    backBtn.style.visibility = 'visible'
+    modalEditModeDiv.classList.add('hidden')
     modalSubmitMode.classList.add('visible')
 
     // Submit work function, Fetch POST
@@ -232,9 +233,18 @@ submitBtn.addEventListener('click', () => {
             filePreviewContainer.appendChild(previewImg)
             fileUploadForm.style.display = 'none'
         }
+        formInputValidate()
     })
+    
+    document.getElementById('work-title').addEventListener('change', () => {
+        formInputValidate()
+    })
+    
+}
 
-})
+// Switch modal gallery to modal submit
+const submitBtn = document.getElementById('submit-btn')
+submitBtn.addEventListener('click', modalEditMode)
 
 // Submit work function, Fetch POST
 async function submitWork(e) {
@@ -246,7 +256,7 @@ async function submitWork(e) {
     
 
     // Checking if all inputs are defined
-    if (!formFile || !formTitle || !formCat) {
+    if (!formFile.files[0] || !formTitle || !formCat) {
         errorFeedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>Veuillez renseigner tous les champs du formulaire.'
     } else {
         // Create FormData object with input values
@@ -264,11 +274,13 @@ async function submitWork(e) {
 }
 
 function switchModeBack() {
-    const modalEditMode = document.getElementById('js-modal-edit')
+    const modalEditModeDiv = document.getElementById('js-modal-edit')
     const modalSubmitMode = document.getElementById('js-modal-form')
+    const backBtn = document.getElementById('js-modal-return')
+    backBtn.style.visibility = 'hidden'
     modalSubmitMode.classList.add('hidden')
     modalSubmitMode.classList.remove('visible')
-    modalEditMode.classList.remove('hidden')
+    modalEditModeDiv.classList.remove('hidden')
 }
 
 // Displays edit mode and all hidden elements if logged in / token exists
@@ -296,6 +308,21 @@ function displayAdmin(){
         element.classList.remove('hidden')
     })
     document.querySelector('header').style.marginTop='100px'
+}
+
+const formInputValidate = () => {
+    const formFile = document.getElementById('work-file')
+    const formTitle = document.getElementById('work-title').value
+    const formCat = document.getElementById('work-category').value
+    const addWorkbtn = document.getElementById('add-work-btn')
+
+    if (formFile.files[0] !== null && formTitle !== null && formCat !== null){
+        addWorkbtn.disabled = false
+        addWorkbtn.classList.remove('disabled-btn')
+    } else {
+        addWorkbtn.disabled = true
+        addWorkbtn.classList.add('disabled-btn')
+    }
 }
 
 // Modal functions
@@ -348,6 +375,4 @@ async function initProject() {
     adminView()
 }
 
-window.onload = () => {
-    initProject()
-}
+window.addEventListener('load', initProject)

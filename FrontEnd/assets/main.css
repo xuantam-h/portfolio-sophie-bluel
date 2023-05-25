@@ -287,10 +287,11 @@ input[type=submit] {
   margin: 0; /* 2 */
   background: transparent;
   border: none;
-}
-.js-modal-wrapper #js-modal-close {
   cursor: pointer;
   font-size: 1.25rem;
+}
+.js-modal-wrapper .js-modal-buttons #js-modal-return {
+  visibility: hidden;
 }
 .js-modal-wrapper .js-modal-cta {
   padding-top: 2.375rem;
@@ -412,6 +413,10 @@ footer nav ul {
 }
 #introduction .introduction-image {
   flex: 1;
+}
+#introduction button {
+  margin-left: 3.5rem;
+  margin-top: 1rem;
 }
 #introduction img {
   display: block;
