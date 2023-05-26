@@ -214,10 +214,9 @@ let isCategory = false
 
 const formInputValidate = () => {
     const addWorkbtn = document.getElementById('add-work-btn')
-    if (/*isValidImg && isImg &&*/ isTitle /*&& isCategory*/){
+    if (isValidImg && isTitle && isCategory){
         addWorkbtn.disabled = false
         addWorkbtn.classList.remove('disabled-btn')
-        alert('CEST BOn')
     } else {
         addWorkbtn.disabled = true
         addWorkbtn.classList.add('disabled-btn')
@@ -243,7 +242,6 @@ const modalEditMode = () => {
         const fileUploadForm = document.querySelector('.file-upload-form')
         const previewImg = document.createElement('img')
         const fileMaxSize = 4000000
-        const value = e.target.value
 
         // Testing if the uploaded file is bigger than 4MB
         if (formFile.files[0].size > fileMaxSize) {
@@ -258,23 +256,35 @@ const modalEditMode = () => {
     })
 
     const formTitle = document.getElementById('work-title') 
-    const categorySelect = document.getElementById('work-category')
-
-    isValueListener(formTitle, 'input', isTitle)
-}
-
-// Checking whether there is a value or not in the input fields
-// id = id of the element, type = type of listener, varName = name of the var that will be changed (e.g: isTitle, isCategory)
-const isValueListener = (id, type, varName) => {
-    id.addEventListener(type, (e) =>{
+    formTitle.addEventListener('input', (e) => {
         const value = e.target.value
-        if (value === "") {
-            return varName = false
+        if (isValue(e)) {
+            isTitle = true
         } else {
-            return varName = true
+            isTitle = false
         }
         formInputValidate()
     })
+
+    const categorySelect = document.getElementById('work-category')
+    categorySelect.addEventListener('change', (e) => {
+        if (isValue(e)) {
+            isCategory = true
+        } else {
+            isCategory = false
+        }
+        formInputValidate()
+    })
+}
+
+// Checking whether there is a value or not in the input fields
+const isValue = (e) => {
+    const value = e.target.value
+    if (value === "") {
+        return false
+    } else {
+        return true
+    }
 }
 
 // Switch modal gallery to modal submit
@@ -331,7 +341,7 @@ const checkLogIn = () => {
 // Displays edit mode if user is logged in
 function adminView() {
     if (isLoggedIn) {
-        displayAdmin()
+        displayAdminElem()
         logOut()
     }
 }
@@ -348,7 +358,7 @@ function logOut() {
 }
 
 // Function to display hidden elements when logged in
-function displayAdmin(){
+function displayAdminElem(){
     document.querySelectorAll('.hidden').forEach((element) => {
         element.classList.remove('hidden')
     })
