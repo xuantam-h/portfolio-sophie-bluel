@@ -1,4 +1,5 @@
 const url = 'http://localhost:5678/api/'
+let isLoggedIn 
 
 // Import token when logged in
 let token = window.localStorage.getItem('token')
@@ -162,7 +163,7 @@ async function createFilters() {
     }
 
     // Won't be displayed in admin mode
-    if (token != null) {
+    if (isLoggedIn) {
         filtersList.classList.add('hidden')
     }
 }
@@ -205,6 +206,24 @@ async function getCategoriesSelect(){
     }
 }
 
+// Validation input
+let isValidImg = false
+let isImg = false
+let isTitle = false
+let isCategory = false
+
+const formInputValidate = () => {
+    const addWorkbtn = document.getElementById('add-work-btn')
+    if (/*isValidImg && isImg &&*/ isTitle /*&& isCategory*/){
+        addWorkbtn.disabled = false
+        addWorkbtn.classList.remove('disabled-btn')
+        alert('CEST BOn')
+    } else {
+        addWorkbtn.disabled = true
+        addWorkbtn.classList.add('disabled-btn')
+    }
+}
+
 // Modal submit work mode
 const modalEditMode = () => {
     const modalEditModeDiv = document.getElementById('js-modal-edit')
@@ -224,22 +243,38 @@ const modalEditMode = () => {
         const fileUploadForm = document.querySelector('.file-upload-form')
         const previewImg = document.createElement('img')
         const fileMaxSize = 4000000
+        const value = e.target.value
 
         // Testing if the uploaded file is bigger than 4MB
         if (formFile.files[0].size > fileMaxSize) {
             alert('Le fichier importé est trop volumineux.')
         } else {
+            isValidImg = true
             previewImg.src = URL.createObjectURL(formFile.files[0])
             filePreviewContainer.appendChild(previewImg)
             fileUploadForm.style.display = 'none'
         }
         formInputValidate()
     })
-    
-    document.getElementById('work-title').addEventListener('change', () => {
+
+    const formTitle = document.getElementById('work-title') 
+    const categorySelect = document.getElementById('work-category')
+
+    isValueListener(formTitle, 'input', isTitle)
+}
+
+// Checking whether there is a value or not in the input fields
+// id = id of the element, type = type of listener, varName = name of the var that will be changed (e.g: isTitle, isCategory)
+const isValueListener = (id, type, varName) => {
+    id.addEventListener(type, (e) =>{
+        const value = e.target.value
+        if (value === "") {
+            return varName = false
+        } else {
+            return varName = true
+        }
         formInputValidate()
     })
-    
 }
 
 // Switch modal gallery to modal submit
@@ -253,7 +288,6 @@ async function submitWork(e) {
     const formTitle = document.getElementById('work-title').value
     const formCat = document.getElementById('work-category').value
     const errorFeedback = document.getElementById('error-feedback')
-    
 
     // Checking if all inputs are defined
     if (!formFile.files[0] || !formTitle || !formCat) {
@@ -267,8 +301,9 @@ async function submitWork(e) {
 
         await fetchData('works', 'POST', formData)
 
-        // Closes modal and refreshing gallery
+        // Closes modal, switch modal gallery and refreshing gallery
         closeModal(e)
+        switchModeBack()
         await initializeGallery()
     }
 }
@@ -283,12 +318,22 @@ function switchModeBack() {
     modalEditModeDiv.classList.remove('hidden')
 }
 
-// Displays edit mode and all hidden elements if logged in / token exists
-function adminView() {
+// Check if user is logged in (if token exists)
+const checkLogIn = () => {
     if (token != null) {
+        isLoggedIn = true
+        adminView()
+    } else {
+        isLoggedIn = false
+    }
+}
+
+// Displays edit mode if user is logged in
+function adminView() {
+    if (isLoggedIn) {
         displayAdmin()
         logOut()
-    } 
+    }
 }
 
 // Function logout() when logged in
@@ -308,21 +353,6 @@ function displayAdmin(){
         element.classList.remove('hidden')
     })
     document.querySelector('header').style.marginTop='100px'
-}
-
-const formInputValidate = () => {
-    const formFile = document.getElementById('work-file')
-    const formTitle = document.getElementById('work-title').value
-    const formCat = document.getElementById('work-category').value
-    const addWorkbtn = document.getElementById('add-work-btn')
-
-    if (formFile.files[0] !== null && formTitle !== null && formCat !== null){
-        addWorkbtn.disabled = false
-        addWorkbtn.classList.remove('disabled-btn')
-    } else {
-        addWorkbtn.disabled = true
-        addWorkbtn.classList.add('disabled-btn')
-    }
 }
 
 // Modal functions
@@ -372,7 +402,7 @@ async function initProject() {
     initializeGallery()
     createFilters()
     getCategoriesSelect()
-    adminView()
+    checkLogIn()
 }
 
 window.addEventListener('load', initProject)
