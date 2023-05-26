@@ -36,7 +36,8 @@ loginForm.addEventListener('submit', async function(e){
     // Handling errors + actions if response is fulfilled
     if (r.ok === true){
         // Adding token in localstorage and redirect to index.html
-        window.localStorage.setItem("token", tokenId);
+        window.localStorage.setItem("token", tokenId)
+        window.localStorage.setItem('isLoggedIn', true)
         location.href = 'index.html'
     } else {
         // Display error

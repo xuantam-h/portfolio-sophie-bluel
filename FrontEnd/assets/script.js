@@ -3,6 +3,7 @@ let isLoggedIn
 
 // Import token when logged in
 let token = window.localStorage.getItem('token')
+let isUserLoggedIn = window.localStorage.getItem('isLoggedIn')
 
 // Access to API depending on types and methods
 async function fetchData(type, method, bodyObject) {
@@ -163,7 +164,7 @@ async function createFilters() {
     }
 
     // Won't be displayed in admin mode
-    if (isLoggedIn) {
+    if (token != null && isUserLoggedIn === 'true') {
         filtersList.classList.add('hidden')
     }
 }
@@ -330,17 +331,16 @@ function switchModeBack() {
 
 // Check if user is logged in (if token exists)
 const checkLogIn = () => {
-    if (token != null) {
-        isLoggedIn = true
+    if (token != null && isUserLoggedIn === 'true') {
         adminView()
     } else {
-        isLoggedIn = false
+        isUserLoggedIn = false
     }
 }
 
 // Displays edit mode if user is logged in
 function adminView() {
-    if (isLoggedIn) {
+    if (token != null && isUserLoggedIn === 'true') {
         displayAdminElem()
         logOut()
     }
@@ -353,6 +353,7 @@ function logOut() {
     logBtn.addEventListener('click', (e) => {
         e.preventDefault()
         window.localStorage.removeItem('token')
+        window.localStorage.removeItem('isLoggedIn')
         window.location.reload()
     })
 }
