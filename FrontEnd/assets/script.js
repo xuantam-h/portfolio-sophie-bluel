@@ -217,22 +217,30 @@ async function getCategoriesSelect(){
 
 // Validation input
 let isValidImg = false
-let isImg = false
 let isTitle = false
 let isCategory = false
+const addWorkbtn = document.getElementById('add-work-btn')
+
+const resetDisableBtn = () => {
+    addWorkbtn.disabled = true
+    addWorkbtn.classList.remove('btn--active')
+    addWorkbtn.classList.add('btn--disabled')
+}
 
 const formInputValidate = () => {
-    const addWorkbtn = document.getElementById('add-work-btn')
     if (isValidImg && isTitle && isCategory){
         addWorkbtn.disabled = false
         addWorkbtn.classList.remove('btn--disabled')
         addWorkbtn.classList.add('btn--active')
     } else {
-        addWorkbtn.disabled = true
-        addWorkbtn.classList.remove('btn--active')
-        addWorkbtn.classList.add('btn--disabled')
+        resetDisableBtn()
     }
 }
+
+const formFile = document.getElementById('work-file')
+const filePreviewContainer = document.querySelector('.file-upload-preview')
+const fileUploadForm = document.querySelector('.file-upload-form')
+const previewImg = document.createElement('img')
 
 // Modal submit work mode
 const modalEditMode = () => {
@@ -242,16 +250,13 @@ const modalEditMode = () => {
     backBtn.style.visibility = 'visible'
     modalEditModeDiv.classList.add('hidden')
     modalSubmitMode.classList.add('visible')
+    formInputValidate()
 
     // Submit work function, Fetch POST
     const submitForm = document.getElementById('submit-form')
     submitForm.addEventListener('submit', submitWork)
-    const formFile = document.getElementById('work-file')
 
     formFile.addEventListener('change', () => {
-        const filePreviewContainer = document.querySelector('.file-upload-preview')
-        const fileUploadForm = document.querySelector('.file-upload-form')
-        const previewImg = document.createElement('img')
         const fileMaxSize = 4000000
 
         // Testing if the uploaded file is bigger than 4MB
@@ -262,6 +267,7 @@ const modalEditMode = () => {
             previewImg.src = URL.createObjectURL(formFile.files[0])
             filePreviewContainer.appendChild(previewImg)
             fileUploadForm.style.display = 'none'
+            filePreviewContainer.style.display = 'block'
         }
         formInputValidate()
     })
@@ -315,8 +321,6 @@ async function submitWork(e) {
     if (!formFile.files[0] || !formTitle || !formCat) {
         errorFeedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>Veuillez renseigner tous les champs du formulaire.'
     } else {
-        const filePreviewContainer = document.querySelector('.file-upload-preview')
-        const fileUploadForm = document.querySelector('.file-upload-form')
         // Create FormData object with input values
         const formData = new FormData()
         formData.append('image', formFile.files[0])
@@ -325,10 +329,15 @@ async function submitWork(e) {
 
         await fetchData('works', 'POST', formData)
 
-        // Closes modal, switch modal gallery, reset form input, refreshing gallery
+        // Closes modal, switch modal gallery, reset form input, refreshing gallery and thumbnail img
         closeModal(e)
         switchModeBack()
         formContainer.reset()
+        formFile.value = ''
+        previewImg.innerHTML = ''
+        filePreviewContainer.style.display = 'none'
+        fileUploadForm.style.display = 'flex'
+        isValidImg = isTitle = isCategory = 'false'
         await initializeGallery()
     }
 }
@@ -406,7 +415,9 @@ const closeModal = function (e) {
     document.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
     const formContainer = document.getElementById('submit-form')
     formContainer.reset()
-    const formFile = document.getElementById('work-file')
+    formFile.value = ''
+    filePreviewContainer.style.display = 'none'
+    fileUploadForm.style.display = 'flex'
     switchModeBack()
 }
 
