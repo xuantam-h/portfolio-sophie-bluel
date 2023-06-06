@@ -101,17 +101,20 @@ async function createGalleryModal(arr) {
 
         // Create delete button in modal ONLY
         const deleteBtn = document.createElement("button")
-        deleteBtn.classList.add('delete-btn')
+        deleteBtn.classList.add('btn--delete')
         const deleteIcon = document.createElement("i")
         deleteIcon.classList.add('fa-solid', 'fa-trash-can')
         deleteBtn.appendChild(deleteIcon)
+        // Delete work when button is clicked, 'DELETE' method fetch, close modal and reset gallery
         deleteBtn.addEventListener('click', async (e) => {
-            const workId = work.id
-            fetchData(`works/${workId}`, 'DELETE')
-            projectFigure.remove()
-            closeModal(e)
-            await initializeGallery()
-            })
+            if(confirm('Voulez-vous vraiment supprimer le projet ?') == true) {
+                const workId = work.id
+                fetchData(`works/${workId}`, 'DELETE')
+                projectFigure.remove()
+                closeModal(e)
+                await initializeGallery()
+            }
+        })
         modalGalleryBtn.appendChild(deleteBtn)
         projectFigure.appendChild(modalGalleryBtn)
 
@@ -124,7 +127,7 @@ async function createGalleryModal(arr) {
         const modalGalleryArr = Array.from(modalGalleryElem)
         
         const moveBtn = document.createElement("button")
-        moveBtn.classList.add('move-btn')
+        moveBtn.classList.add('btn--move')
         const moveIcon = document.createElement("i")
         moveIcon.classList.add('fa-solid', 'fa-up-down-left-right')
         moveBtn.appendChild(moveIcon)
@@ -142,12 +145,11 @@ async function initializeGallery(){
 // Create filters for projects
 async function createFilters() {
     let categories = await loadCateg()
-
     const filtersList = document.querySelector(".filters-list")
 
     // Create the "all" filter button first
     let filterBtn = document.createElement("li")
-    filterBtn.classList.add("filter-btn", "active-btn")
+    filterBtn.classList.add("btn--filter", "btn--active","btn")
     filterBtn.setAttribute('id', 'all-filters')
     filterBtn.innerText = 'Tous'
     filtersList.appendChild(filterBtn)
@@ -156,7 +158,7 @@ async function createFilters() {
     // Looping array to create the remaining filters
     for (const category of categories){
         let filterBtn = document.createElement("li")
-        filterBtn.classList.add("filter-btn")
+        filterBtn.classList.add("btn--filter", "btn")
         filterBtn.innerText = category.name
         filterBtn.setAttribute('id', category.id)
         filterBtn.addEventListener("click", filterEvent)
@@ -178,9 +180,9 @@ async function filterEvent(e) {
     for (let categoryFilter of categoriesFilter) {
         const categoryId = categoryFilter.getAttribute('id')
         if (filterId == categoryId) {
-            categoryFilter.classList.add('active-btn')
+            categoryFilter.classList.add('btn--active')
         } else {
-            categoryFilter.classList.remove('active-btn')
+            categoryFilter.classList.remove('btn--active')
         }
     }
 
@@ -197,6 +199,12 @@ async function filterEvent(e) {
 async function getCategoriesSelect(){
     let categories = await loadCateg()
     const categorySelect = document.getElementById('work-category')
+
+    // Create placeholder option
+    const placeholderOption = document.createElement('option')
+    placeholderOption.value = ''
+    placeholderOption.innerText = 'Sélectionner une catégorie'
+    categorySelect.appendChild(placeholderOption)
 
     for (let category of categories) {
         const categoryOption = document.createElement('option')
@@ -217,10 +225,12 @@ const formInputValidate = () => {
     const addWorkbtn = document.getElementById('add-work-btn')
     if (isValidImg && isTitle && isCategory){
         addWorkbtn.disabled = false
-        addWorkbtn.classList.remove('disabled-btn')
+        addWorkbtn.classList.remove('btn--disabled')
+        addWorkbtn.classList.add('btn--active')
     } else {
         addWorkbtn.disabled = true
-        addWorkbtn.classList.add('disabled-btn')
+        addWorkbtn.classList.remove('btn--active')
+        addWorkbtn.classList.add('btn--disabled')
     }
 }
 
@@ -295,6 +305,7 @@ submitBtn.addEventListener('click', modalEditMode)
 // Submit work function, Fetch POST
 async function submitWork(e) {
     e.preventDefault()
+    const formContainer = document.getElementById('submit-form')
     const formFile = document.getElementById('work-file')
     const formTitle = document.getElementById('work-title').value
     const formCat = document.getElementById('work-category').value
@@ -304,6 +315,8 @@ async function submitWork(e) {
     if (!formFile.files[0] || !formTitle || !formCat) {
         errorFeedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>Veuillez renseigner tous les champs du formulaire.'
     } else {
+        const filePreviewContainer = document.querySelector('.file-upload-preview')
+        const fileUploadForm = document.querySelector('.file-upload-form')
         // Create FormData object with input values
         const formData = new FormData()
         formData.append('image', formFile.files[0])
@@ -312,9 +325,10 @@ async function submitWork(e) {
 
         await fetchData('works', 'POST', formData)
 
-        // Closes modal, switch modal gallery and refreshing gallery
+        // Closes modal, switch modal gallery, reset form input, refreshing gallery
         closeModal(e)
         switchModeBack()
+        formContainer.reset()
         await initializeGallery()
     }
 }
@@ -360,14 +374,14 @@ function logOut() {
 
 // Function to display hidden elements when logged in
 function displayAdminElem(){
-    document.querySelectorAll('.hidden').forEach((element) => {
-        element.classList.remove('hidden')
+    document.querySelectorAll('.admin-hidden').forEach((element) => {
+        element.classList.remove('admin-hidden')
     })
     document.querySelector('header').style.marginTop='100px'
 }
 
 // Modal functions
-const editBtn = document.querySelectorAll('.edit-btn')
+const editBtn = document.querySelectorAll('.btn--edit')
 const modalMain = document.getElementById('js-modal')
 const modalClose = document.getElementById('js-modal-close')
 
@@ -390,6 +404,10 @@ const closeModal = function (e) {
     modalMain.removeAttribute('aria-modal')
     modalMain.removeEventListener('click', stopPropagation)
     document.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+    const formContainer = document.getElementById('submit-form')
+    formContainer.reset()
+    const formFile = document.getElementById('work-file')
+    switchModeBack()
 }
 
 const stopPropagation = function (e) {
@@ -416,4 +434,5 @@ async function initProject() {
     checkLogIn()
 }
 
+// Call the function initProject() when the page is loading
 window.addEventListener('load', initProject)

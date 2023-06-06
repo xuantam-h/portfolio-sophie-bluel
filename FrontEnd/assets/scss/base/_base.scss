@@ -28,7 +28,7 @@ form{
 	}
 }
 
-.hidden{
+.hidden, .admin-hidden{
 	display: none !important;
 }
 
@@ -47,10 +47,9 @@ form{
 }
 
 #error-feedback{
-	color:red;
+	color:$alert-color;
 	font-weight: bold;
 	margin:toRem(32) 0;
-
 	i{
 		margin-right:toRem(10);
 	}

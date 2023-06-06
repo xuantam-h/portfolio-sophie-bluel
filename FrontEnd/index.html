@@ -13,9 +13,9 @@
     <script src="https://kit.fontawesome.com/247f8df8c0.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="edit-bar" class="hidden">
-	<span class="edit-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</span>
-	<a href="#" class="btn w-btn">publier les changements</a>
+<div id="edit-bar" class="admin-hidden">
+	<span class="btn--edit"><i class="fa-regular fa-pen-to-square"></i> Mode édition</span>
+	<a href="#" class="btn btn--white">publier les changements</a>
 </div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -34,7 +34,7 @@
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
 			</figure>
-			<button class="edit-btn edit-btn-alt hidden" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> modifier</button>
+			<button class="btn--edit btn--edit-alt admin-hidden" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> modifier</button>
 		</div>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -46,7 +46,7 @@
 	<section id="portfolio">
 		<div class="d-flex flex-center">
 			<h2>Mes Projets</h2>
-			<button class="edit-btn edit-btn-alt hidden" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> modifier</button>
+			<button class="btn--edit btn--edit-alt admin-hidden" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> modifier</button>
 		</div>
 		<nav>
 			<ul class="filters-list"></ul>
@@ -63,7 +63,7 @@
 			<input type="email" name="email" id="email">
 			<label for="message">Message</label>
 			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer">
+			<input class="btn btn--active" type="submit" value="Envoyer">
 		</form>
 	</section>
 	<!-- Modal markup -->
@@ -80,7 +80,7 @@
 						
 				</div>
 				<div class="js-modal-cta">
-					<button class="active-btn" id="submit-btn">Ajouter une photo</button>
+					<button class="btn btn--active" id="submit-btn">Ajouter une photo</button>
 					<a href="#" class="colored-link">Supprimer la galerie</a>
 				</div>
 			</div>
@@ -93,7 +93,7 @@
 						<div class="file-upload-form">
 							<img src="assets/icons/image-upload.svg" alt="Upload image icon">
 							<label for="work-file">
-								<a class="btn upload-btn">+ Ajouter photo</a>
+								<a class="btn btn--upload">+ Ajouter photo</a>
 							</label>
 							<input type="file" name="work-file" id="work-file" accept="image/png, image/jpeg">
 							<p id="file-limit">jpg, png : 4mo max</p>
@@ -110,7 +110,7 @@
 					<!-- Alert feedback -->
 					<p id="error-feedback"></p>
 					<div class="js-modal-cta">
-						<input class="btn disabled-btn" id="add-work-btn" type="submit" value="Valider" disabled>
+						<input class="btn btn--disabled" id="add-work-btn" type="submit" value="Valider" disabled>
 					</div>
 				</form>
 			</div>

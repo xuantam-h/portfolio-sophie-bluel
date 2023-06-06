@@ -84,7 +84,7 @@ form label {
   margin: 2em 0 1em 0;
 }
 
-.hidden {
+.hidden, .admin-hidden {
   display: none !important;
 }
 
@@ -103,7 +103,7 @@ form label {
 }
 
 #error-feedback {
-  color: red;
+  color: #AD0404;
   font-weight: bold;
   margin: 2rem 0;
 }
@@ -132,7 +132,7 @@ h2 {
   color: #1D6154;
 }
 
-input[type=submit], .btn, .active-btn, .filter-btn {
+.btn {
   font-family: "Syne", sans-serif;
   font-weight: 700;
   text-align: center;
@@ -141,39 +141,19 @@ input[type=submit], .btn, .active-btn, .filter-btn {
   text-decoration: none;
   padding: 0.5625rem 1.875rem;
 }
-
-.filters-list {
-  gap: 0.625rem;
-  margin: 3.1875rem 0;
-  display: flex;
-  justify-content: center;
-}
-
-.filter-btn {
-  background-color: #FFF;
-  color: #1D6154;
-  border-color: #1D6154;
-  cursor: pointer;
-}
-
-input[type=submit], .active-btn {
-  color: #FFF;
-  background-color: #1D6154;
-}
-
-input[type=submit] {
-  margin: 2em auto;
-  width: 11.25rem;
-}
-
-.upload-btn {
+.btn--upload {
   border-color: #CBD6DC;
   background-color: #CBD6DC;
   color: #306685;
   font-family: "Work Sans", sans-serif;
 }
-
-.w-btn {
+.btn--filter {
+  background-color: #FFF;
+  color: #1D6154;
+  border-color: #1D6154;
+  cursor: pointer;
+}
+.btn--white {
   background-color: #FFF;
   color: #000;
   padding: 0.6875rem 1.4375rem;
@@ -181,10 +161,41 @@ input[type=submit] {
   border-color: #FFF;
   font-family: "Work Sans";
 }
-
-.disabled-btn {
+.btn--disabled {
   color: #FFF;
   background-color: #A7A7A7;
+  border-color: #A7A7A7;
+}
+.btn--edit {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: none;
+  margin-right: 1.3125rem;
+  font-size: 1rem;
+}
+.btn--active {
+  color: #FFF;
+  background-color: #1D6154;
+}
+.btn--delete, .btn--move {
+  width: 1.5rem;
+  background-color: #000;
+  padding: 0.25rem;
+  border-radius: 0.125rem;
+  color: #FFF;
+  border: none;
+  cursor: pointer;
+}
+
+.filters-list {
+  gap: 0.625rem;
+  margin: 3.1875rem 0;
+  display: flex;
+  justify-content: center;
 }
 
 .underlined-link {
@@ -204,33 +215,6 @@ input[type=submit] {
   text-align: center;
   margin-top: 1.4375rem;
   display: block;
-}
-
-.edit-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-  color: #FFF;
-  text-decoration: none;
-  margin-right: 1.3125rem;
-  font-size: 1rem;
-}
-
-.edit-btn-alt {
-  color: #000;
-}
-
-.delete-btn, .move-btn {
-  width: 1.5rem;
-  background-color: #000;
-  padding: 0.25rem;
-  border-radius: 0.125rem;
-  color: #FFF;
-  border: none;
-  cursor: pointer;
 }
 
 @keyframes fadeIn {
@@ -298,6 +282,9 @@ input[type=submit] {
   border-top: 1px solid #B3B3B3;
   text-align: center;
 }
+.js-modal-wrapper .js-modal-cta button, .js-modal-wrapper .js-modal-cta input {
+  min-width: 14.8125rem;
+}
 
 #js-modal-edit, #js-modal-form {
   max-width: 80%;
@@ -341,7 +328,6 @@ input[type=submit] {
 .file-container {
   background-color: #E8F1F6;
   border-radius: 0.1875rem;
-  padding: 1.75rem 0;
   text-align: center;
 }
 .file-container .file-upload-form {
@@ -349,10 +335,13 @@ input[type=submit] {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 1.75rem 0;
 }
 .file-container .file-upload-preview img {
-  max-width: 100%;
-  max-height: 11.875rem;
+  width: 8.125rem;
+  height: 11.875rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .file-container #file-limit {
   font-size: 0.625rem;
@@ -400,6 +389,9 @@ header nav ul li a:visited {
   top: 0;
   left: 0;
   z-index: 1;
+}
+#edit-bar .btn--edit {
+  color: #FFF;
 }
 
 footer nav ul {
@@ -470,6 +462,11 @@ i.fa-pen-to-square {
 
 #login-container {
   text-align: center;
-  max-width: 50%;
-  margin: auto;
+}
+#login-container #login-form {
+  max-width: 23.6875rem;
+  margin: 0 auto;
+}
+#login-container #login-form .underlined-link {
+  margin-top: 1.75rem;
 }/*# sourceMappingURL=main.css.map */

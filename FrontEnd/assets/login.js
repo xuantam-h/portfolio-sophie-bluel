@@ -9,8 +9,8 @@ loginForm.addEventListener('submit', async function(e){
 
     // Sending form input values
     const loginData = {
-        email: userMail.value,
-        password: userPwd.value
+        email: userMail.value.trim(),
+        password: userPwd.value.trim()
     }
 
     // Convert the data into JSON

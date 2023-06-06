@@ -50,6 +50,9 @@
 		padding-top:toRem(38);
 		border-top:1px solid $lightest-gray-color;
 		text-align: center;
+		button,input{
+			min-width: toRem(237);
+		}
 	}
 
 }
@@ -98,17 +101,18 @@
 .file-container{
 	background-color:$gray-blue;
 	border-radius: toRem(3);
-	padding:toRem(28) 0;
 	text-align: center;
 
 	.file-upload-form{
 		@include flex-center-column;
+		padding:toRem(28) 0;
 	}
 
 	.file-upload-preview{
 		img{
-			max-width: 100%;
-			max-height: toRem(190);
+			width: toRem(130);
+			height: toRem(190);
+			object-fit: cover;
 		}
 	}
 

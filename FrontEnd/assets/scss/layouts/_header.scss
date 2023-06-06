@@ -36,4 +36,7 @@ header {
 	width: 100%;
 	@include pos-fixed;
 	z-index: 1;
+	.btn--edit{
+		color:$white-color;
+	}
 }
