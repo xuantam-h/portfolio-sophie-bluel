@@ -352,6 +352,20 @@ function switchModeBack() {
     modalEditModeDiv.classList.remove('hidden')
 }
 
+const removePreviewBtn = document.querySelector('.file-upload-preview-close')
+
+// Function to remove thumbnail preview in submit modal and reset the file input field
+const removePreview = () => {
+    previewImg.src = ''
+    formFile.value = ''
+    filePreviewContainer.style.display = 'none'
+    fileUploadForm.style.display = 'flex'
+    formInputValidate()
+}
+
+removePreviewBtn.addEventListener('click', removePreview)
+
+
 // Check if user is logged in (if token exists)
 const checkLogIn = () => {
     if (token != null && isUserLoggedIn === 'true') {

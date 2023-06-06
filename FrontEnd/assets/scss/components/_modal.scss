@@ -109,10 +109,28 @@
 	}
 
 	.file-upload-preview{
+		width: toRem(130);
+		height: toRem(190);
+		margin: 0 auto;
+		display: none;
+		position: relative;
+
 		img{
 			width: toRem(130);
 			height: toRem(190);
 			object-fit: cover;
+		}
+		.file-upload-preview-close{
+			background-color: $primary-color;
+			width: toRem(30);
+			height: toRem(30);
+			@include flex-center;
+			border-radius: 50%;
+			position: absolute;
+			color: $white-color;
+			right: toRem(-10);
+			border: none;
+			cursor: pointer;
 		}
 	}
 

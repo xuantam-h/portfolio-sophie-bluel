@@ -337,11 +337,32 @@ h2 {
   flex-direction: column;
   padding: 1.75rem 0;
 }
+.file-container .file-upload-preview {
+  width: 8.125rem;
+  height: 11.875rem;
+  margin: 0 auto;
+  display: none;
+  position: relative;
+}
 .file-container .file-upload-preview img {
   width: 8.125rem;
   height: 11.875rem;
   -o-object-fit: cover;
      object-fit: cover;
+}
+.file-container .file-upload-preview .file-upload-preview-close {
+  background-color: #1D6154;
+  width: 1.875rem;
+  height: 1.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: absolute;
+  color: #FFF;
+  right: -0.625rem;
+  border: none;
+  cursor: pointer;
 }
 .file-container #file-limit {
   font-size: 0.625rem;
