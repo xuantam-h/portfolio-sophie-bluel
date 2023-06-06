@@ -337,7 +337,7 @@ async function submitWork(e) {
         previewImg.innerHTML = ''
         filePreviewContainer.style.display = 'none'
         fileUploadForm.style.display = 'flex'
-        isValidImg = isTitle = isCategory = 'false'
+        isValidImg = isTitle = isCategory = false
         await initializeGallery()
     }
 }
@@ -358,6 +358,7 @@ const removePreviewBtn = document.querySelector('.file-upload-preview-close')
 const removePreview = () => {
     previewImg.src = ''
     formFile.value = ''
+    isValidImg = false
     filePreviewContainer.style.display = 'none'
     fileUploadForm.style.display = 'flex'
     formInputValidate()
@@ -430,6 +431,7 @@ const closeModal = function (e) {
     const formContainer = document.getElementById('submit-form')
     formContainer.reset()
     formFile.value = ''
+    isValidImg = false
     filePreviewContainer.style.display = 'none'
     fileUploadForm.style.display = 'flex'
     switchModeBack()
