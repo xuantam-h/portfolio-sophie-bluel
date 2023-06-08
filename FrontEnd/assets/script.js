@@ -355,7 +355,8 @@ function switchModeBack() {
 const removePreviewBtn = document.querySelector('.file-upload-preview-close')
 
 // Function to remove thumbnail preview in submit modal and reset the file input field
-const removePreview = () => {
+const removePreview = (e) => {
+    e.preventDefault()
     previewImg.src = ''
     formFile.value = ''
     isValidImg = false
