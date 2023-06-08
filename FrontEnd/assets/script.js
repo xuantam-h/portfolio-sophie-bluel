@@ -308,6 +308,8 @@ const isValue = (e) => {
 const submitBtn = document.getElementById('submit-btn')
 submitBtn.addEventListener('click', modalEditMode)
 
+const errorFeedback = document.getElementById('error-feedback')
+
 // Submit work function, Fetch POST
 async function submitWork(e) {
     e.preventDefault()
@@ -315,7 +317,6 @@ async function submitWork(e) {
     const formFile = document.getElementById('work-file')
     const formTitle = document.getElementById('work-title').value
     const formCat = document.getElementById('work-category').value
-    const errorFeedback = document.getElementById('error-feedback')
 
     // Checking if all inputs are defined
     if (!formFile.files[0] || !formTitle || !formCat) {
@@ -338,6 +339,7 @@ async function submitWork(e) {
         filePreviewContainer.style.display = 'none'
         fileUploadForm.style.display = 'flex'
         isValidImg = isTitle = isCategory = false
+        errorFeedback.innerHTML = ''
         await initializeGallery()
     }
 }
@@ -435,6 +437,7 @@ const closeModal = function (e) {
     isValidImg = false
     filePreviewContainer.style.display = 'none'
     fileUploadForm.style.display = 'flex'
+    errorFeedback.innerHTML = ''
     switchModeBack()
 }
 
